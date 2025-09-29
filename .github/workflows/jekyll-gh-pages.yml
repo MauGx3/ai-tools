@@ -25,6 +25,8 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    outputs:
+      pages_enabled: ${{ steps.pages.outcome == 'success' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,21 +41,51 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
+        continue-on-error: true
+
+      - name: Check Pages Status
+        if: steps.pages.outcome == 'failure'
+        run: |
+          echo "⚠️  GitHub Pages is not enabled for this repository."
+          echo "📖 To enable GitHub Pages:"
+          echo "   1. Go to repository Settings"
+          echo "   2. Navigate to 'Pages' in the sidebar"
+          echo "   3. Under 'Source', select 'GitHub Actions'"
+          echo "   4. Save the settings"
+          echo "   5. Re-run this workflow"
+          echo ""
+          echo "💡 This workflow will build the site but skip deployment until Pages is enabled."
 
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: |
+          if [[ "${{ steps.pages.outcome }}" == "success" ]]; then
+            bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+          else
+            bundle exec jekyll build
+          fi
         env:
           JEKYLL_ENV: production
 
       - name: Upload artifact
+        # Only upload if Pages is properly configured
+        if: steps.pages.outcome == 'success'
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3
 
+      - name: Upload artifact for preview
+        # If Pages is not configured, still upload as regular artifact for review
+        if: steps.pages.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages
+          path: _site/
+          retention-days: 1
+
   # Deployment job
   deploy:
+    # Only deploy if Pages is configured and we're on main branch
+    if: github.ref == 'refs/heads/main' && needs.build.outputs.pages_enabled == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
