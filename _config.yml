@@ -1,0 +1,84 @@
+# Site settings
+title: AI Tools Collection
+description: A comprehensive collection of AI-related tools, prompts, instructions, and documentation for personal use.
+baseurl: "/ai-tools" # the subpath of your site, e.g. /blog
+url: "https://maugx3.github.io" # the base hostname & protocol for your site
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Collections
+collections:
+  prompts:
+    output: true
+    permalink: /:collection/:name/
+  instructions:
+    output: true
+    permalink: /:collection/:name/
+  modes:
+    output: true
+    permalink: /:collection/:name/
+  thoughts:
+    output: true
+    permalink: /:collection/:name/
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Prompts
+    url: /prompts/
+  - title: Instructions
+    url: /instructions/
+  - title: Modes
+    url: /modes/
+  - title: Documentation
+    url: /docs/
+  - title: Thoughts
+    url: /thoughts/
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "prompts"
+    values:
+      layout: "prompt"
+      category: "prompt"
+  - scope:
+      path: ""
+      type: "instructions"
+    values:
+      layout: "instruction"
+      category: "instruction"
+  - scope:
+      path: ""
+      type: "modes"
+    values:
+      layout: "mode"
+      category: "mode"
+  - scope:
+      path: ""
+      type: "thoughts"
+    values:
+      layout: "thought"
+      category: "thought"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md

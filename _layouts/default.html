@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% seo %}
+    <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+    <style>
+      .site-nav { background: #f8f9fa; padding: 1rem; margin-bottom: 2rem; }
+      .nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 1rem; }
+      .nav-item a { text-decoration: none; color: #0366d6; font-weight: 500; }
+      .nav-item a:hover { text-decoration: underline; }
+      .category-badge { background: #e1e8ed; padding: 0.2rem 0.5rem; border-radius: 3px; font-size: 0.8rem; }
+      .content-meta { background: #f6f8fa; padding: 1rem; border-radius: 5px; margin-bottom: 1.5rem; }
+      .back-link { margin-bottom: 1rem; }
+      .back-link a { color: #0366d6; text-decoration: none; }
+      .back-link a:before { content: "← "; }
+    </style>
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      <header class="site-header">
+        <h1><a href="{{ "/" | relative_url }}">{{ site.title | default: "AI Tools Collection" }}</a></h1>
+        <p>{{ site.description | default: "A comprehensive collection of AI-related tools and documentation" }}</p>
+        
+        <nav class="site-nav">
+          <ul class="nav-list">
+            {% for nav_item in site.navigation %}
+              <li class="nav-item">
+                <a href="{{ nav_item.url | relative_url }}">{{ nav_item.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </header>
+
+      <main class="page-content" aria-label="Content">
+        {{ content }}
+      </main>
+
+      <footer class="site-footer">
+        <div class="wrapper">
+          <p>&copy; {{ "now" | date: "%Y" }} AI Tools Collection. Licensed under MPL 2.0.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

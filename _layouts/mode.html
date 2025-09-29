@@ -1,0 +1,43 @@
+---
+layout: default
+---
+
+<div class="back-link">
+  <a href="{{ '/modes/' | relative_url }}">Back to Modes</a>
+</div>
+
+<article class="mode">
+  <header>
+    <h1>{{ page.title }}</h1>
+    <div class="content-meta">
+      <p><strong>Mode Type:</strong> <span class="category-badge">{{ page.mode_type | default: "General" }}</span></p>
+      {% if page.ai_model %}
+        <p><strong>Recommended AI Model:</strong> {{ page.ai_model }}</p>
+      {% endif %}
+      {% if page.context_length %}
+        <p><strong>Context Length:</strong> {{ page.context_length }}</p>
+      {% endif %}
+      {% if page.best_for %}
+        <p><strong>Best For:</strong> {{ page.best_for }}</p>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="content">
+    {{ content }}
+  </div>
+
+  {% if page.configuration %}
+    <section class="configuration">
+      <h2>Configuration</h2>
+      {{ page.configuration | markdownify }}
+    </section>
+  {% endif %}
+
+  {% if page.example_usage %}
+    <section class="example-usage">
+      <h2>Example Usage</h2>
+      {{ page.example_usage | markdownify }}
+    </section>
+  {% endif %}
+</article>

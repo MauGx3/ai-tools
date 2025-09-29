@@ -1,0 +1,36 @@
+---
+layout: default
+---
+
+<div class="back-link">
+  <a href="{{ '/thoughts/' | relative_url }}">Back to Thoughts</a>
+</div>
+
+<article class="thought">
+  <header>
+    <h1>{{ page.title }}</h1>
+    <div class="content-meta">
+      <p><strong>Type:</strong> <span class="category-badge">{{ page.thought_type | default: "General" }}</span></p>
+      {% if page.date %}
+        <p><strong>Date:</strong> {{ page.date | date: "%B %d, %Y" }}</p>
+      {% endif %}
+      {% if page.related_tools %}
+        <p><strong>Related Tools:</strong> {{ page.related_tools | join: ", " }}</p>
+      {% endif %}
+      {% if page.status %}
+        <p><strong>Status:</strong> <span class="category-badge">{{ page.status }}</span></p>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="content">
+    {{ content }}
+  </div>
+
+  {% if page.follow_up %}
+    <section class="follow-up">
+      <h2>Follow-up Actions</h2>
+      {{ page.follow_up | markdownify }}
+    </section>
+  {% endif %}
+</article>

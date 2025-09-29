@@ -1,0 +1,47 @@
+---
+layout: default
+---
+
+<div class="back-link">
+  <a href="{{ '/prompts/' | relative_url }}">Back to Prompts</a>
+</div>
+
+<article class="prompt">
+  <header>
+    <h1>{{ page.title }}</h1>
+    <div class="content-meta">
+      <p><strong>Category:</strong> <span class="category-badge">{{ page.category | default: "General" }}</span></p>
+      {% if page.tags %}
+        <p><strong>Tags:</strong> 
+          {% for tag in page.tags %}
+            <span class="category-badge">{{ tag }}</span>
+          {% endfor %}
+        </p>
+      {% endif %}
+      {% if page.description %}
+        <p><strong>Description:</strong> {{ page.description }}</p>
+      {% endif %}
+      {% if page.use_case %}
+        <p><strong>Use Case:</strong> {{ page.use_case }}</p>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="content">
+    {{ content }}
+  </div>
+
+  {% if page.examples %}
+    <section class="examples">
+      <h2>Examples</h2>
+      {{ page.examples | markdownify }}
+    </section>
+  {% endif %}
+
+  {% if page.variations %}
+    <section class="variations">
+      <h2>Variations</h2>
+      {{ page.variations | markdownify }}
+    </section>
+  {% endif %}
+</article>
