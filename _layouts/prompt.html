@@ -12,7 +12,7 @@ layout: default
     <div class="content-meta">
       <p><strong>Category:</strong> <span class="category-badge">{{ page.category | default: "General" }}</span></p>
       {% if page.tags %}
-        <p><strong>Tags:</strong> 
+        <p><strong>Tags:</strong>
           {% for tag in page.tags %}
             <span class="category-badge">{{ tag }}</span>
           {% endfor %}
