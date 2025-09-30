@@ -87,6 +87,16 @@ An automated bash script that:
 
 Use this script for quick automated verification after deployments.
 
+### playwright-test-guide.md
+A comprehensive guide for testing with Playwright MCP server:
+- Detailed test categories and procedures
+- Example Playwright commands
+- Interactive testing workflows
+- Integration with CI/CD
+- Visual regression testing
+
+Use this guide for thorough interactive testing with Playwright MCP.
+
 ## Current Status
 
 As of the last check:
