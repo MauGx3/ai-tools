@@ -114,7 +114,7 @@ Follow this convention for all project commits.
 
 * `pytest` https://github.com/pytest-dev/pytest: The pytest framework makes it easy to write small tests, yet scales to support complex functional testing. [Docs](https://docs.pytest.org/en/stable/)
 * `pytest-benchmark` https://github.com/ionelmc/pytest-benchmark: A `pytest` fixture for benchmarking code. It will group the tests into rounds that are calibrated to the chosen timer. [Docs](http://pytest-benchmark.readthedocs.org/en/stable/)
-* https://github.com/Teemu/pytest-sugar
+* `pytest-sugar` https://github.com/Teemu/pytest-sugar: A plugin for pytest that adds a beautiful and highly readable output to test results, making it easier to spot failures and progress. [Docs](https://pypi.org/project/pytest-sugar/)
 
 ### PDF
 
