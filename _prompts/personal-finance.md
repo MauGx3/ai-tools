@@ -19,7 +19,7 @@
 - **Target Model**: GitHub Copilot
 - **Parameters**:
   - Temperature: 0.5
-  - Token Limit: 5 tokens
+  - Token Limit: 4000 tokens
   - Top-K: N/A
   - Top-P: N/A
 
