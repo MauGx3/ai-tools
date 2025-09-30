@@ -43,7 +43,7 @@ Keep the code accessible to junior developers where possible, but don't let it b
 - **Documentation**: Use Google documentation guidelines for Python code.
 - **Project Template**: Started using the [cookiecutter-django] template.
 - **Formatter**: Use `ruff` for code formatting.
-- **Package Management**: Prefer `uv` over `pip` when available.
+This code will be mostly deployed as a Docker container, so there should be a focus on maintaining security and performance for a Docker app. For my personal use, I will run the app on a QNAP NAS running QTS 5. A large amount of data will be expected to be used as the app develops and the user collects more data, so consider best practices for following Big Data performance.
 - **Testing**: Use `pytest` for tests.
 - **Local Development**: Use `docker-compose` for local development and testing.
 - **Version Control**: Use `git` for version control.
