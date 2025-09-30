@@ -27,7 +27,7 @@
 
 ### Situation
 
-This code uses Django as the web framework. The code depends on many dependencies, but the finance packages are essential, such as `yfinance`, `stockdex` etc that need to work properly and have fallbacks to guarantee best functionality for the app. The complete list of packages to be used in the project can be found at /.github/copilot-instructions.md
+This code uses Django as the web framework. The code depends on many dependencies, but the finance packages are essential, such as `yfinance`, `stockdex`, etc that need to work properly and have fallbacks to guarantee best functionality for the app. The complete list of packages to be used in the project can be found at /.github/copilot-instructions.md
 
 ### Challenge
 
