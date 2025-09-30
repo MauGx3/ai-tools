@@ -31,11 +31,22 @@ For scanning your own starred repositories:
 # Set your token (recommended)
 export GITHUB_TOKEN="your_token_here"
 
-# Run the scanner
+# Basic scan
 python scripts/scan_starred_repos.py --output data/starred-repos.json --limit 10
+
+# OR with enhanced descriptions (NEW!)
+python scripts/scan_starred_repos.py --enhance-description --limit 10
+
+# OR with full analysis (languages + enhanced descriptions)
+python scripts/scan_starred_repos.py --include-languages --enhance-description --limit 10
 ```
 
 This will scan your first 10 starred repositories and save the results.
+
+**New Features:**
+- `--enhance-description`: Automatically generates rich descriptions from metadata
+- `--include-languages`: Fetches language breakdown with percentages
+- `--include-readme`: Includes README previews for deeper AI analysis
 
 ## Step 4: Review the Output
 
@@ -56,7 +67,13 @@ You'll see structured data like:
     {
       "repository": "owner/repo-name",
       "description": "Repository description",
+      "enhanced_description": "Repository description | Topics: web, api | Built with Python | Popular project with 2,345 stars",
       "language": "Python",
+      "languages": {
+        "Python": 85.5,
+        "JavaScript": 10.2,
+        "CSS": 4.3
+      },
       "topics": ["topic1", "topic2"],
       "stars": 1234,
       ...
@@ -103,6 +120,12 @@ See [example-starred-repos-analysis.md](data/example-starred-repos-analysis.md) 
 ```bash
 # Scan all your starred repos
 python scripts/scan_starred_repos.py --output data/starred-repos.json
+
+# NEW: Scan with enhanced descriptions
+python scripts/scan_starred_repos.py --enhance-description --output data/starred-repos.json
+
+# NEW: Comprehensive scan with all features
+python scripts/scan_starred_repos.py --enhance-description --include-languages --include-readme --limit 50
 
 # Scan with README previews (slower but more context)
 python scripts/scan_starred_repos.py --include-readme --limit 20

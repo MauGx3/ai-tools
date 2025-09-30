@@ -10,7 +10,9 @@ Automated scanner for GitHub starred repositories. Fetches metadata and prepares
 
 **Features:**
 - Fetches all starred repositories via GitHub API
-- Extracts comprehensive metadata (language, topics, stars, etc.)
+- Extracts comprehensive metadata (language, topics, stars, watchers, etc.)
+- **NEW: Language breakdown** - Get percentage distribution of languages used
+- **NEW: Enhanced description generation** - Automatically generate rich descriptions from metadata
 - Optional README preview fetching
 - Pagination support for large collections
 - Rate limit awareness
@@ -29,8 +31,11 @@ export GITHUB_TOKEN="your_token_here"
 # Scan your starred repositories
 python scan_starred_repos.py --output data/starred-repos.json
 
-# Scan with README previews (slower)
-python scan_starred_repos.py --include-readme --limit 20
+# Scan with enhanced descriptions
+python scan_starred_repos.py --enhance-description --limit 20
+
+# Scan with language breakdown and README previews
+python scan_starred_repos.py --include-languages --include-readme --limit 20
 
 # Scan another user's public stars
 python scan_starred_repos.py --username octocat --output octocat-stars.json
@@ -44,6 +49,8 @@ python scan_starred_repos.py --username octocat --output octocat-stars.json
 - `--max-pages`: Maximum pages to fetch
 - `--limit`, `-l`: Maximum repositories to process
 - `--include-readme`: Fetch README previews
+- `--include-languages`: **NEW** - Fetch language breakdown (percentage distribution)
+- `--enhance-description`: **NEW** - Generate enhanced descriptions automatically
 
 **Examples:**
 
@@ -51,11 +58,14 @@ python scan_starred_repos.py --username octocat --output octocat-stars.json
 # Quick test with first 10 repos
 python scan_starred_repos.py --limit 10
 
-# Full scan with README previews
-python scan_starred_repos.py --include-readme --output full-scan.json
+# Full scan with enhanced descriptions
+python scan_starred_repos.py --enhance-description --output enhanced-scan.json
 
-# Scan first 50 repos from specific user
-python scan_starred_repos.py --username torvalds --limit 50
+# Comprehensive analysis with all features
+python scan_starred_repos.py --include-readme --include-languages --enhance-description --limit 50
+
+# Scan first 50 repos from specific user with language data
+python scan_starred_repos.py --username torvalds --include-languages --limit 50
 
 # Use custom token
 python scan_starred_repos.py --token ghp_xxxxx --output my-stars.json
@@ -74,10 +84,17 @@ python scan_starred_repos.py --token ghp_xxxxx --output my-stars.json
       "name": "repo-name",
       "github_url": "https://github.com/owner/repo-name",
       "description": "Repository description",
+      "enhanced_description": "Repository description | Topics: web, javascript | Built with JavaScript | Popular project with 5,234 stars | Framework",
       "language": "Python",
+      "languages": {
+        "Python": 75.5,
+        "JavaScript": 15.2,
+        "HTML": 9.3
+      },
       "topics": ["tag1", "tag2"],
       "stars": 1234,
       "forks": 56,
+      "watchers": 89,
       "open_issues": 12,
       "created_at": "2020-01-01T00:00:00Z",
       "updated_at": "2024-01-01T00:00:00Z",

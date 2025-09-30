@@ -131,13 +131,93 @@ class StarredRepoScanner:
 
         return None
 
-    def extract_metadata(self, repo: Dict, include_readme: bool = False) -> Dict:
+    def fetch_languages(self, owner: str, repo: str) -> Optional[Dict]:
+        """
+        Fetch language breakdown for a repository
+
+        Args:
+            owner: Repository owner
+            repo: Repository name
+
+        Returns:
+            Dictionary of languages with byte counts, or None if not found
+        """
+        url = f"{self.BASE_URL}/repos/{owner}/{repo}/languages"
+
+        try:
+            response = requests.get(url, headers=self.headers)
+            if response.status_code == 200:
+                return response.json()
+        except Exception as e:
+            print(f"Warning: Could not fetch languages for {owner}/{repo}: {e}", file=sys.stderr)
+
+        return None
+
+    def generate_enhanced_description(self, repo: Dict, readme: Optional[str] = None) -> str:
+        """
+        Generate an enhanced description using repository metadata
+
+        Args:
+            repo: Repository data from GitHub API
+            readme: Optional README content for context
+
+        Returns:
+            Enhanced description string
+        """
+        base_description = repo.get("description", "")
+        
+        # Start with base description
+        enhanced_parts = []
+        
+        if base_description:
+            enhanced_parts.append(base_description)
+        
+        # Add context from topics
+        topics = repo.get("topics", [])
+        if topics and len(topics) > 0:
+            topic_str = ", ".join(topics[:5])  # First 5 topics
+            enhanced_parts.append(f"Topics: {topic_str}")
+        
+        # Add language context
+        language = repo.get("language")
+        if language:
+            enhanced_parts.append(f"Built with {language}")
+        
+        # Add activity indicators
+        stars = repo.get("stargazers_count", 0)
+        if stars > 1000:
+            enhanced_parts.append(f"Popular project with {stars:,} stars")
+        elif stars > 100:
+            enhanced_parts.append(f"Active project with {stars} stars")
+        
+        # Extract key phrases from README if available
+        if readme:
+            # Look for common README sections
+            readme_lower = readme.lower()
+            
+            # Check for key indicators
+            if "cli" in readme_lower or "command-line" in readme_lower or "command line" in readme_lower:
+                enhanced_parts.append("Command-line tool")
+            
+            if "framework" in readme_lower:
+                enhanced_parts.append("Framework")
+            elif "library" in readme_lower:
+                enhanced_parts.append("Library")
+            
+            if "api" in readme_lower and ("rest" in readme_lower or "graphql" in readme_lower):
+                enhanced_parts.append("Provides API functionality")
+        
+        return " | ".join(enhanced_parts) if enhanced_parts else "No description available"
+
+    def extract_metadata(self, repo: Dict, include_readme: bool = False, include_languages: bool = False, enhance_description: bool = False) -> Dict:
         """
         Extract relevant metadata from repository data
 
         Args:
             repo: Repository data from GitHub API
             include_readme: Whether to fetch and include README content
+            include_languages: Whether to fetch language breakdown
+            enhance_description: Whether to generate enhanced description
 
         Returns:
             Dictionary with extracted metadata
@@ -152,6 +232,7 @@ class StarredRepoScanner:
             "topics": repo.get("topics", []),
             "stars": repo["stargazers_count"],
             "forks": repo["forks_count"],
+            "watchers": repo.get("watchers_count", 0),
             "open_issues": repo.get("open_issues_count", 0),
             "created_at": repo["created_at"],
             "updated_at": repo["updated_at"],
@@ -160,13 +241,34 @@ class StarredRepoScanner:
             "license": repo.get("license", {}).get("name") if repo.get("license") else None,
             "archived": repo.get("archived", False),
             "fork": repo.get("fork", False),
+            "default_branch": repo.get("default_branch", "main"),
+            "has_issues": repo.get("has_issues", False),
+            "has_wiki": repo.get("has_wiki", False),
+            "has_pages": repo.get("has_pages", False),
         }
 
+        readme_content = None
         if include_readme:
-            readme = self.fetch_readme(repo["owner"]["login"], repo["name"])
-            if readme:
+            readme_content = self.fetch_readme(repo["owner"]["login"], repo["name"])
+            if readme_content:
                 # Truncate to first 2000 characters to keep manageable for AI
-                metadata["readme_preview"] = readme[:2000]
+                metadata["readme_preview"] = readme_content[:2000]
+        
+        # Fetch language breakdown
+        if include_languages:
+            languages = self.fetch_languages(repo["owner"]["login"], repo["name"])
+            if languages:
+                # Calculate percentages
+                total_bytes = sum(languages.values())
+                language_percentages = {
+                    lang: round((bytes_count / total_bytes) * 100, 1)
+                    for lang, bytes_count in languages.items()
+                }
+                metadata["languages"] = language_percentages
+
+        # Generate enhanced description
+        if enhance_description:
+            metadata["enhanced_description"] = self.generate_enhanced_description(repo, readme_content)
 
         return metadata
 
@@ -176,6 +278,8 @@ class StarredRepoScanner:
         per_page: int = 100,
         max_pages: Optional[int] = None,
         include_readme: bool = False,
+        include_languages: bool = False,
+        enhance_description: bool = False,
         limit: Optional[int] = None
     ) -> Dict:
         """
@@ -186,6 +290,8 @@ class StarredRepoScanner:
             per_page: Results per page for API calls
             max_pages: Maximum pages to fetch
             include_readme: Whether to fetch README previews
+            include_languages: Whether to fetch language breakdown
+            enhance_description: Whether to generate enhanced descriptions
             limit: Maximum number of repositories to process
 
         Returns:
@@ -206,7 +312,12 @@ class StarredRepoScanner:
             if i % 10 == 0:
                 print(f"Processed {i}/{len(repos)} repositories...", file=sys.stderr)
 
-            metadata = self.extract_metadata(repo, include_readme=include_readme)
+            metadata = self.extract_metadata(
+                repo,
+                include_readme=include_readme,
+                include_languages=include_languages,
+                enhance_description=enhance_description
+            )
             repositories.append(metadata)
 
         # Create output structure
@@ -283,6 +394,16 @@ Examples:
         action="store_true",
         help="Fetch and include README previews (slower)"
     )
+    parser.add_argument(
+        "--include-languages",
+        action="store_true",
+        help="Fetch language breakdown for each repository"
+    )
+    parser.add_argument(
+        "--enhance-description",
+        action="store_true",
+        help="Generate enhanced descriptions using metadata analysis"
+    )
 
     args = parser.parse_args()
 
@@ -295,6 +416,8 @@ Examples:
         per_page=args.per_page,
         max_pages=args.max_pages,
         include_readme=args.include_readme,
+        include_languages=args.include_languages,
+        enhance_description=args.enhance_description,
         limit=args.limit
     )
 
