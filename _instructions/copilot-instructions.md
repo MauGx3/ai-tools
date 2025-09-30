@@ -5,29 +5,30 @@ difficulty: "intermediate"
 time_required: "15-30 minutes per review"
 prerequisites: "GitHub Copilot access, basic understanding of code review principles"
 description: "Comprehensive agentic instructions for automated code review using GitHub Copilot and AI agents"
+applyTo: ["*.md", "*.js", "*.ts", "*.py", "*.java", "*.go", "*.rb", "*.php", "*.cs", "*.cpp", "*.c", "*.h", "*.jsx", "*.tsx", "*.vue", "*.swift", "*.kt"]
 ---
 
 This guide provides actionable instructions for conducting effective automated code reviews using GitHub Copilot and other AI agents. These instructions are designed for both human reviewers leveraging AI tools and autonomous AI agents performing reviews.
 
 ## Core Review Principles
 
-### 1. Focus on High-Impact Issues
-- Prioritize security vulnerabilities and critical bugs
-- Identify performance bottlenecks and scalability concerns
-- Flag architectural issues that impact maintainability
-- Balance thoroughness with actionable feedback
+### 1. Understand Before Critiquing
+- Read and comprehend the entire change before commenting
+- Identify the intent and context of the modifications
+- Consider the business requirements driving the change
+- Review related documentation and linked issues
 
-### 2. Provide Constructive Feedback
+### 2. Be Kind and Constructive
+- Assume positive intent from the author
+- Frame feedback as questions or suggestions, not commands
+- Praise good solutions and improvements
+- Focus on the code, not the person
+
+### 3. Provide Actionable Feedback
 - Be specific about issues and proposed solutions
 - Include code examples for suggested improvements
 - Explain the reasoning behind recommendations
-- Acknowledge positive aspects of the code
-
-### 3. Context-Aware Analysis
-- Consider the project's specific requirements and constraints
-- Understand the codebase conventions and patterns
-- Respect the existing architecture and design decisions
-- Adapt feedback to the team's skill level and practices
+- Link to relevant documentation or standards
 
 ## Automated Review Checklist
 
@@ -86,79 +87,45 @@ This guide provides actionable instructions for conducting effective automated c
 ### Review Analysis Process
 
 1. **Initial Assessment**
-   ```
-   - Read the entire diff/changeset
-   - Identify the purpose and scope of changes
-   - Note the affected components and systems
-   - Understand the context from commit messages and PR description
-   ```
+   - Use `github-mcp-server-get_pull_request` to retrieve PR details
+   - Use `github-mcp-server-get_pull_request_diff` to get the full diff
+   - Use `github-mcp-server-get_pull_request_files` to list all changed files
+   - Read commit messages and PR description for context
 
 2. **Systematic Evaluation**
-   ```
    - Apply the automated review checklist systematically
+   - Use `github-mcp-server-get_file_contents` to view full file context when needed
    - Categorize findings by severity (Critical, Major, Minor)
    - Document specific line numbers and file locations
    - Prepare actionable recommendations
-   ```
 
 3. **Generate Review Output**
-   ```
    - Start with an overall assessment summary
    - List findings organized by category and severity
    - Highlight positive aspects of the implementation
    - Provide specific, actionable recommendations
    - Include code examples for suggested improvements
-   ```
 
 ### Review Output Format
 
-Use this structured format for consistency:
+Use this concise format:
 
-```markdown
-## Code Review Summary
+**Summary**: [1-2 sentence overview]
 
-**Overall Assessment**: [Brief summary of code quality and main concerns]
+**Critical Issues** 🚨
+- `file.ext:line` - [Issue] → [Solution]
 
-**Files Reviewed**: [Number] files with [Number] additions and [Number] deletions
+**Major Issues** ⚠️
+- `file.ext:line` - [Issue] → [Solution]
 
----
+**Minor Issues** 💡
+- `file.ext:line` - [Issue] → [Solution]
 
-## Critical Issues 🚨
-*Security vulnerabilities or major bugs that must be addressed*
+**Positive Aspects** ✅
+- [What's done well]
 
-1. **[Issue Title]** - `filename.ext:line`
-   - **Problem**: [Description of the issue]
-   - **Impact**: [Potential consequences]
-   - **Solution**: [Specific recommendation]
-   - **Example**:
-   ```language
-   // Suggested fix
-   ```
-
-## Major Issues ⚠️
-*Performance problems or significant design concerns*
-
-[Same format as Critical Issues]
-
-## Minor Issues 💡
-*Style improvements, optimizations, or suggestions*
-
-[Same format as Critical Issues]
-
-## Positive Aspects ✅
-*Well-implemented features and good practices*
-
-- [Specific praise with examples]
-- [Recognition of good patterns]
-- [Acknowledgment of improvements]
-
-## Recommendations 📋
-*Actionable next steps*
-
-1. [Priority action items]
-2. [Suggested improvements]
-3. [Future considerations]
-```
+**Recommendations** 📋
+1. [Priority actions]
 
 ### Severity Guidelines
 
@@ -183,44 +150,11 @@ Use this structured format for consistency:
 - Refactoring opportunities
 - Better naming suggestions
 
-## Language-Specific Considerations
-
-### JavaScript/TypeScript
-- Check for proper TypeScript types (avoid `any`)
-- Verify async/await error handling
-- Review React hooks usage and dependencies
-- Validate PropTypes or TypeScript interfaces
-- Check for memory leaks in event listeners
-
-### Python
-- Verify PEP 8 compliance
-- Check for proper exception handling
-- Review type hints usage
-- Validate virtual environment and dependencies
-- Check for resource cleanup (context managers)
-
-### Java
-- Verify null safety
-- Review exception handling patterns
-- Check for resource management (try-with-resources)
-- Validate thread safety in concurrent code
-- Review logging practices
-
-### Go
-- Check error handling (never ignore errors)
-- Review goroutine and channel usage
-- Verify context propagation
-- Check for resource leaks (defer statements)
-- Validate error wrapping with context
-
-### Ruby
-- Review ActiveRecord query patterns
-- Check for N+1 query problems
-- Verify proper use of blocks and lambdas
-- Review test coverage with RSpec/Minitest
-- Check for security issues in Rails apps
+> **Note**: Language-specific code review instructions are available in separate files. This guide focuses on universal code review principles applicable to all programming languages.
 
 ## Integration with CI/CD
+
+> **Note**: Prepare your CI/CD pipeline to support language-specific review instructions. Create separate instruction files for each language (e.g., `copilot-instructions-python.md`, `copilot-instructions-javascript.md`) and configure your pipeline to load the appropriate instructions based on the file type being reviewed.
 
 ### Automated Review Triggers
 - **Pull Request Creation**: Initial automated review
@@ -240,30 +174,45 @@ Use this structured format for consistency:
 - Provide explanation for flagged issues
 - Offer option to suppress specific rules
 
-## Best Practices for Reviewers
+## AI Collaboration with Humans
 
-### Human + AI Collaboration
-1. **Use AI for Initial Triage**: Let AI catch common issues
-2. **Focus Human Review**: Spend time on architecture and design
-3. **Verify AI Findings**: Validate automated suggestions
-4. **Provide Context**: Add domain knowledge AI might miss
-5. **Continuous Improvement**: Refine AI instructions based on feedback
+### When Working with Human Reviewers
+1. **Complement, Don't Replace**: Focus on routine checks while humans handle architectural decisions
+2. **Ask for Clarification**: When uncertain about intent or requirements, ask questions instead of making assumptions
+3. **Learn from Feedback**: When humans override or modify your suggestions, note the pattern for future reviews
+4. **Provide Context**: Explain why you flagged an issue, including relevant documentation or best practices
+5. **Escalate Appropriately**: Flag complex issues that require human judgment (e.g., architectural decisions, business logic)
 
-### Review Efficiency
-- Review smaller changesets more frequently
-- Focus on changes, not entire files
-- Use automated tools for style and format checks
-- Prioritize high-risk areas (security, data handling)
-- Set reasonable time limits per review session
+### Effective Communication
+- Use clear, concise language without jargon
+- Frame suggestions as questions when appropriate: "Consider X because Y?"
+- Acknowledge when you're uncertain: "This might be an issue, but please verify"
+- Respect existing patterns: "I see this pattern elsewhere; is there a reason for the difference?"
+- Celebrate improvements: "This change addresses the previous concern well"
 
-### Communication Tips
-- Be respectful and professional
-- Assume positive intent
-- Ask questions to understand intent
-- Offer to pair on complex issues
-- Celebrate good work and improvements
+### Collaboration Protocol
+- **Initial Review**: Provide automated feedback on common issues
+- **Human Review**: Wait for human reviewer to assess architectural and business logic
+- **Iterative Refinement**: Respond to new changes quickly with focused feedback
+- **Learning**: Track which suggestions are accepted/rejected to improve future reviews
 
 ## Common Pitfalls to Avoid
+
+### AI-Specific Pitfalls
+❌ **Hallucinating Issues**: Don't report problems that don't exist in the actual code
+✅ **Verify Before Flagging**: Ensure issues are real and reproducible
+
+❌ **Over-Explaining**: Don't provide verbose explanations for simple issues
+✅ **Be Concise**: State the issue and solution clearly and briefly
+
+❌ **Ignoring Context**: Don't apply generic rules without considering project context
+✅ **Contextual Review**: Adapt feedback to the project's patterns and requirements
+
+❌ **Repeating Feedback**: Don't flag the same issue multiple times across similar code
+✅ **Consolidate**: Group similar issues and suggest a comprehensive solution
+
+❌ **Missing Obvious Issues**: Don't get distracted by minor issues while missing critical bugs
+✅ **Prioritize**: Always check security and correctness first
 
 ### Over-Automation
 ❌ Blindly accepting all AI suggestions
@@ -281,10 +230,6 @@ Use this structured format for consistency:
 ❌ Reviewing code in isolation
 ✅ Understanding business requirements and constraints
 
-### Delayed Feedback
-❌ Waiting days to provide review
-✅ Review within 24 hours when possible
-
 ## Success Metrics
 
 Track these indicators to measure review effectiveness:
@@ -297,27 +242,49 @@ Track these indicators to measure review effectiveness:
 
 ## Continuous Improvement
 
-### Regular Reviews
-- **Weekly**: Review metrics and patterns
-- **Monthly**: Update instructions based on learnings
-- **Quarterly**: Evaluate new AI capabilities
-- **Annually**: Complete review process audit
+### Learning from Past Reviews
+1. **Track Patterns**: Identify common issues and false positives
+2. **Analyze Feedback**: Review which suggestions were accepted/rejected
+3. **Update Knowledge**: Incorporate new patterns and project-specific rules
+4. **Refine Approach**: Adjust severity thresholds based on team preferences
+5. **Share Insights**: Document lessons learned for future reviews
 
-### Feedback Loop
-1. Collect feedback from developers
-2. Analyze common false positives
-3. Identify missed issues in production
-4. Update instructions and rules
-5. Share learnings with the team
+### Self-Improvement for AI Agents
+- **After Each Review**: Note which findings were validated by humans
+- **Weekly**: Analyze acceptance rate of different types of suggestions
+- **Monthly**: Identify categories where accuracy can improve
+- **Quarterly**: Evaluate if new types of issues should be added to checklist
+- **Continuously**: Learn project-specific patterns and conventions
 
-## Next Steps
+### Adaptation Strategies
+- If false positive rate is high: Be more conservative, require stronger evidence
+- If missing issues: Expand checklist, review context more thoroughly
+- If feedback is unclear: Ask more clarifying questions, provide better examples
+- If overloading reviewers: Consolidate similar issues, reduce noise
 
-1. **Start with Manual + AI**: Combine human expertise with AI assistance
-2. **Build Confidence**: Gradually increase reliance on automation
-3. **Customize Instructions**: Adapt to your team's specific needs
-4. **Measure Impact**: Track improvements in code quality
-5. **Iterate and Improve**: Continuously refine the process
+## Future Review Instructions
 
----
+When conducting subsequent code reviews for the same repository or team:
 
-**Remember**: The goal is to improve code quality while respecting developers' time and expertise. AI-assisted code review should enhance, not replace, human judgment and collaboration.
+1. **Reference Previous Reviews**: Check history for similar patterns or issues
+2. **Apply Learned Patterns**: Use project-specific knowledge from past interactions
+3. **Respect Established Norms**: Follow team conventions identified in previous reviews
+4. **Build on Feedback**: Incorporate human reviewer preferences from past PRs
+5. **Track Recurring Issues**: Identify and flag systemic problems across multiple PRs
+6. **Suggest Process Improvements**: When patterns emerge, recommend preventive measures
+7. **Maintain Consistency**: Apply the same standards across similar code changes
+8. **Evolve with Codebase**: Adapt as the project grows and patterns change
+
+### Context Retention
+- Remember coding style preferences from previous reviews
+- Track architectural decisions and their rationale
+- Note which suggestions were rejected and why
+- Build understanding of project-specific constraints
+- Recognize team priorities (e.g., security-first vs. speed-first)
+
+### Progressive Assistance
+- Start with fundamental issues in first reviews
+- Gradually introduce more advanced suggestions as trust builds
+- Adjust verbosity based on feedback (more/less explanation)
+- Focus on areas where past suggestions were most valuable
+- Reduce focus on areas where suggestions were consistently rejected
