@@ -46,8 +46,11 @@ This test plan covers all generated pages from the Jekyll build:
 3. `/docs/guides/prompt-engineering-best-practices/`
 4. `/docs/references/prompt-templates/`
 
-**Total: 22 pages**
+### Other Pages (2 pages)
+1. `/feed.xml` (RSS feed)
+2. `/sitemap.xml` (Sitemap)
 
+**Total: 24 pages**
 ## Test Procedure
 
 ### Step 1: Enable GitHub Pages
