@@ -29,7 +29,7 @@ favicon_ico: false
 nav_sort: case_insensitive
 
 # Footer content
-footer_content: "© 2025 AI Tools Collection. Licensed under MPL 2.0."
+footer_content: "© {{ site.time | date: '%Y' }} AI Tools Collection. Licensed under MPL 2.0."
 
 # Back to top link
 back_to_top: true
