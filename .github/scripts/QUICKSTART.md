@@ -17,7 +17,7 @@ GitHub Pages is **NOT enabled**. Your site builds successfully but is not deploy
 
 ### Step 3: Verify
 Your site will be live at:
-**🌐 https://maugx3.github.io/ai-tools/**
+**🌐 https://YOUR_USERNAME.github.io/REPO_NAME/**
 
 ### Step 4: Test (Optional)
 ```bash

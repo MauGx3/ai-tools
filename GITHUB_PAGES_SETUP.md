@@ -4,6 +4,23 @@
 
 Your GitHub Pages site is **not currently deployed** because GitHub Pages is not enabled in the repository settings.
 
+## Important: Configure Your Repository
+
+Before enabling Pages, update these values in `_config.yml` to match your repository:
+
+```yaml
+baseurl: "/your-repo-name"  # Change to your repository name
+url: "https://yourusername.github.io"  # Change to your GitHub username
+```
+
+Example for this repository:
+```yaml
+baseurl: "/ai-tools"
+url: "https://maugx3.github.io"
+```
+
+**Note:** The documentation below uses `YOUR_USERNAME` and `REPO_NAME` as placeholders. Replace them with your actual GitHub username and repository name.
+
 ## Quick Fix (5 minutes)
 
 Follow these steps to enable GitHub Pages and deploy your site:
@@ -32,6 +49,9 @@ After enabling Pages:
 
 Once deployed, your site will be live at:
 
+**🌐 https://YOUR_USERNAME.github.io/REPO_NAME/**
+
+For this repository specifically:
 **🌐 https://maugx3.github.io/ai-tools/**
 
 ## Verify Everything Works
@@ -97,7 +117,7 @@ Once you enable GitHub Pages, the next workflow run will:
 2. Detect Pages is enabled ✅
 3. Upload as Pages artifact
 4. **Deploy to GitHub Pages** ✨
-5. Make your site live at https://maugx3.github.io/ai-tools/
+5. Make your site live at https://YOUR_USERNAME.github.io/REPO_NAME/
 
 ## Testing
 

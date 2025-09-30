@@ -2,6 +2,19 @@
 
 This directory contains scripts and documentation for testing and verifying the GitHub Pages deployment.
 
+## Important: URL Configuration
+
+The scripts and documentation use placeholder URLs (`YOUR_USERNAME.github.io/REPO_NAME`). 
+
+**For this repository**, the actual URL is: `https://maugx3.github.io/ai-tools/`
+
+To use these scripts with a different repository:
+1. Update `_config.yml` with your `baseurl` and `url`
+2. Set the `GITHUB_PAGES_URL` environment variable when running the verification script:
+   ```bash
+   GITHUB_PAGES_URL=https://yourusername.github.io/your-repo bash .github/scripts/verify-pages.sh
+   ```
+
 ## Issue
 
 The GitHub Pages site is not currently deployed because GitHub Pages is not enabled in the repository settings. The Jekyll site builds successfully, but the deployment step is being skipped.
@@ -28,7 +41,7 @@ After enabling GitHub Pages:
 2. You should see a new workflow run starting automatically
 3. Wait for the "Build and deploy Jekyll site to GitHub Pages" workflow to complete
 4. The workflow will show a "deploy" job this time (previously it was skipped)
-5. Once complete, your site will be live at: https://maugx3.github.io/ai-tools/
+5. Once complete, your site will be live at: https://YOUR_USERNAME.github.io/REPO_NAME/
 
 ### Step 3: Verify the Deployment
 
@@ -48,7 +61,7 @@ Expected output:
 ```
 =========================================
 GitHub Pages Verification Script
-Base URL: https://maugx3.github.io/ai-tools
+Base URL: https://YOUR_USERNAME.github.io/REPO_NAME
 =========================================
 
 Testing Main Pages...
@@ -125,7 +138,7 @@ The GitHub Actions workflow is intelligently handling the situation:
 
 3. **Verify deployment**
    - Run `./github/scripts/verify-pages.sh`
-   - Or manually visit https://maugx3.github.io/ai-tools/
+   - Or manually visit https://YOUR_USERNAME.github.io/REPO_NAME/
 
 4. **Report any issues**
    - If any pages fail to load, check the workflow logs

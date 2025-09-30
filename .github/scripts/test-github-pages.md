@@ -5,7 +5,7 @@ This document provides a comprehensive test plan to verify that all pages are pr
 ## Prerequisites
 
 - GitHub Pages must be enabled in the repository settings
-- The site should be accessible at: `https://maugx3.github.io/ai-tools/`
+- The site should be accessible at: `https://YOUR_USERNAME.github.io/REPO_NAME/`
 - Playwright MCP server should be available
 
 ## Test Scope
@@ -64,7 +64,7 @@ If not already enabled:
 Test that the main page loads correctly:
 
 ```
-1. Navigate to https://maugx3.github.io/ai-tools/
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/
 2. Verify page loads without errors (200 status)
 3. Verify page title contains "AI Tools Collection"
 4. Verify navigation menu is present
@@ -77,7 +77,7 @@ Test each collection listing page:
 
 #### Prompts Page
 ```
-1. Navigate to https://maugx3.github.io/ai-tools/prompts/
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/prompts/
 2. Verify page loads (200 status)
 3. Verify "Prompts" heading is present
 4. Verify at least 5 prompt links are listed
@@ -86,7 +86,7 @@ Test each collection listing page:
 
 #### Instructions Page
 ```
-1. Navigate to https://maugx3.github.io/ai-tools/instructions/
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/instructions/
 2. Verify page loads (200 status)
 3. Verify "Instructions" heading is present
 4. Verify at least 4 instruction links are listed
@@ -94,7 +94,7 @@ Test each collection listing page:
 
 #### Modes Page
 ```
-1. Navigate to https://maugx3.github.io/ai-tools/modes/
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/modes/
 2. Verify page loads (200 status)
 3. Verify "Modes" heading is present
 4. Verify at least 2 mode links are listed
@@ -102,14 +102,14 @@ Test each collection listing page:
 
 #### Thoughts Page
 ```
-1. Navigate to https://maugx3.github.io/ai-tools/thoughts/
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/thoughts/
 2. Verify page loads (200 status)
 3. Verify "Thoughts" heading is present
 ```
 
 #### Documentation Page
 ```
-1. Navigate to https://maugx3.github.io/ai-tools/docs/
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/docs/
 2. Verify page loads (200 status)
 3. Verify "Documentation" heading is present
 ```
@@ -120,7 +120,7 @@ Test a sample of individual pages from each collection:
 
 #### Sample Prompt Page
 ```
-1. Navigate to https://maugx3.github.io/ai-tools/prompts/code-review-assistant/
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/prompts/code-review-assistant/
 2. Verify page loads (200 status)
 3. Verify page has content
 4. Verify "Back to Prompts" link is present and functional
@@ -129,7 +129,7 @@ Test a sample of individual pages from each collection:
 
 #### Sample Instruction Page
 ```
-1. Navigate to https://maugx3.github.io/ai-tools/instructions/github-actions-copilot-setup/
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/instructions/github-actions-copilot-setup/
 2. Verify page loads (200 status)
 3. Verify page has content
 4. Verify code blocks are properly formatted
@@ -137,14 +137,14 @@ Test a sample of individual pages from each collection:
 
 #### Sample Mode Page
 ```
-1. Navigate to https://maugx3.github.io/ai-tools/modes/advanced-coding-assistant/
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/modes/advanced-coding-assistant/
 2. Verify page loads (200 status)
 3. Verify page has content
 ```
 
 #### Sample Documentation Page
 ```
-1. Navigate to https://maugx3.github.io/ai-tools/docs/guides/jekyll-github-pages-setup/
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/docs/guides/jekyll-github-pages-setup/
 2. Verify page loads (200 status)
 3. Verify page has content and proper formatting
 ```
@@ -173,7 +173,7 @@ Test that navigation works across the site:
 ### Step 7: Verify RSS Feed
 
 ```
-1. Navigate to https://maugx3.github.io/ai-tools/feed.xml
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/feed.xml
 2. Verify valid XML is returned
 3. Verify feed contains expected entries
 ```
@@ -181,7 +181,7 @@ Test that navigation works across the site:
 ### Step 8: Verify Sitemap
 
 ```
-1. Navigate to https://maugx3.github.io/ai-tools/sitemap.xml
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/sitemap.xml
 2. Verify valid XML is returned
 3. Verify sitemap contains all major pages
 ```

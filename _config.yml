@@ -7,7 +7,33 @@ url: "https://maugx3.github.io" # the base hostname & protocol for your site
 # Build settings
 markdown: kramdown
 highlighter: rouge
-theme: minima
+
+# Theme configuration
+# Using Just the Docs - a modern, responsive documentation theme
+# https://just-the-docs.github.io/just-the-docs/
+theme: just-the-docs
+
+# Just the Docs theme customization
+# Enable/disable features
+search_enabled: true
+heading_anchors: true
+
+# Color scheme (light/dark mode support)
+color_scheme: light
+
+# Appearance settings
+logo: false
+favicon_ico: false
+
+# Navigation
+nav_sort: case_insensitive
+
+# Footer content
+footer_content: "© 2025 AI Tools Collection. Licensed under MPL 2.0."
+
+# Back to top link
+back_to_top: true
+back_to_top_text: "Back to top"
 
 # Plugins
 plugins:

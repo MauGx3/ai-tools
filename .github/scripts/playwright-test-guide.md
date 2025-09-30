@@ -5,7 +5,7 @@ This guide explains how to use the Playwright MCP Server to comprehensively test
 ## Prerequisites
 
 - GitHub Pages must be enabled and deployed
-- Site should be accessible at: https://maugx3.github.io/ai-tools/
+- Site should be accessible at: https://YOUR_USERNAME.github.io/REPO_NAME/
 - Playwright MCP server should be available in your environment
 
 ## Why Use Playwright for Testing?
@@ -25,7 +25,7 @@ Test the most important user journeys:
 
 ```
 Test: Home Page → Prompts → Individual Prompt → Back to Prompts
-1. Navigate to https://maugx3.github.io/ai-tools/
+1. Navigate to https://YOUR_USERNAME.github.io/REPO_NAME/
 2. Click "Prompts" in navigation
 3. Click on "Code Review Assistant"
 4. Verify content loads
@@ -53,7 +53,7 @@ const pages = [
 ];
 
 for (const page of pages) {
-  const url = `https://maugx3.github.io/ai-tools${page}`;
+  const url = `https://YOUR_USERNAME.github.io/REPO_NAME${page}`;
   // Navigate and verify page loads
   // Check for HTTP 200 status
   // Verify no console errors
@@ -131,7 +131,7 @@ Test: Internal Links
 ### Test 1: Basic Home Page Load
 
 ```
-playwright-browser_navigate: https://maugx3.github.io/ai-tools/
+playwright-browser_navigate: https://YOUR_USERNAME.github.io/REPO_NAME/
 playwright-browser_snapshot: (capture page structure)
 playwright-browser_take_screenshot: filename="home-page.png"
 ```
@@ -141,7 +141,7 @@ Expected: Page loads, shows "AI Tools Collection" title, navigation menu visible
 ### Test 2: Navigation Flow
 
 ```
-1. playwright-browser_navigate: https://maugx3.github.io/ai-tools/
+1. playwright-browser_navigate: https://YOUR_USERNAME.github.io/REPO_NAME/
 2. playwright-browser_click: element="Prompts link", ref="[nav link]"
 3. playwright-browser_snapshot: (verify prompts page)
 4. playwright-browser_click: element="Code Review Assistant", ref="[link]"
@@ -167,7 +167,7 @@ Expected: All pages load with HTTP 200, no console errors.
 
 ```
 1. playwright-browser_resize: width=375, height=667
-2. playwright-browser_navigate: https://maugx3.github.io/ai-tools/
+2. playwright-browser_navigate: https://YOUR_USERNAME.github.io/REPO_NAME/
 3. playwright-browser_take_screenshot: filename="mobile-view.png"
 4. playwright-browser_snapshot: (verify mobile layout)
 ```
@@ -177,7 +177,7 @@ Expected: Mobile-friendly layout, readable text, functional navigation.
 ### Test 5: Verify Links Work
 
 ```
-1. playwright-browser_navigate: https://maugx3.github.io/ai-tools/prompts/
+1. playwright-browser_navigate: https://YOUR_USERNAME.github.io/REPO_NAME/prompts/
 2. playwright-browser_snapshot: (get all links)
 3. For each prompt link:
    a. playwright-browser_click: link
@@ -236,7 +236,7 @@ Once GitHub Pages is enabled, you can run these tests interactively:
 2. **Begin testing**:
    ```
    "Please use Playwright to test my GitHub Pages site at 
-   https://maugx3.github.io/ai-tools/. Start by navigating to 
+   https://YOUR_USERNAME.github.io/REPO_NAME/. Start by navigating to 
    the home page and taking a screenshot."
    ```
 
@@ -321,7 +321,7 @@ Playwright MCP provides a powerful way to comprehensively test your GitHub Pages
 
 ```bash
 # Use this with Playwright MCP:
-"Test all pages on https://maugx3.github.io/ai-tools/. 
+"Test all pages on https://YOUR_USERNAME.github.io/REPO_NAME/. 
 For each of these paths, navigate to it, take a screenshot, 
 and verify it loads correctly:
 /, /prompts/, /instructions/, /modes/, /thoughts/, /docs/, 

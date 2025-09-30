@@ -6,7 +6,8 @@
 set -e
 
 # Configuration
-BASE_URL="https://maugx3.github.io/ai-tools"
+# Allow overriding the base URL via environment variable
+BASE_URL="${GITHUB_PAGES_URL:-https://maugx3.github.io/ai-tools}"
 TOTAL_PAGES=0
 PASSED_PAGES=0
 FAILED_PAGES=0
@@ -21,6 +22,9 @@ echo "========================================="
 echo "GitHub Pages Verification Script"
 echo "Base URL: $BASE_URL"
 echo "========================================="
+echo ""
+echo "Note: Set GITHUB_PAGES_URL environment variable to test a different URL"
+echo "Example: GITHUB_PAGES_URL=https://yourusername.github.io/ai-tools bash $0"
 echo ""
 
 # Function to check if a page exists
