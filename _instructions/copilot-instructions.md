@@ -5,6 +5,8 @@ difficulty: "intermediate"
 time_required: "15-30 minutes per review"
 prerequisites: "GitHub Copilot access, basic understanding of code review principles"
 description: "Comprehensive agentic instructions for automated code review using GitHub Copilot and AI agents"
+tags: ["code review", "copilot", "AI", "best practices"]
+categories: ["automation"]
 applyTo: ["*.md", "*.js", "*.ts", "*.py", "*.java", "*.go", "*.rb", "*.php", "*.cs", "*.cpp", "*.c", "*.h", "*.jsx", "*.tsx", "*.vue", "*.swift", "*.kt"]
 ---
 
