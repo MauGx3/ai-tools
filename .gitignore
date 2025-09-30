@@ -23,3 +23,11 @@ data/*.csv
 data/*.md
 # Keep .gitkeep to preserve directory structure
 !data/.gitkeep
+!data/example-starred-repos-analysis.md
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
