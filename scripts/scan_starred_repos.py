@@ -219,7 +219,9 @@ class StarredRepoScanner:
         
         # Save to file if specified
         if output_file:
-            os.makedirs(os.path.dirname(output_file), exist_ok=True)
+            output_dir = os.path.dirname(output_file)
+            if output_dir:
+                os.makedirs(output_dir, exist_ok=True)
             with open(output_file, "w", encoding="utf-8") as f:
                 json.dump(output, f, indent=2, ensure_ascii=False)
             print(f"Results saved to {output_file}", file=sys.stderr)
