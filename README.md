@@ -100,10 +100,11 @@ python scripts/scan_starred_repos.py --output data/starred-repos.json
 ```
 
 **Learn More:**
-- [Repository Analyzer Prompt](_prompts/repository-analyzer.md)
-- [Starred Repository Scanner Guide](_instructions/starred-repository-scanner.md)
-- [Example Analysis](data/example-starred-repos-analysis.md)
-- [Implementation Thoughts](_thoughts/starred-repository-scanner-implementation.md)
+- [Getting Started Guide](docs/guides/starred-repository-scanner.md) - 5-minute quick start
+- [Repository Analyzer Prompt](_prompts/repository-analyzer.md) - AI prompt for analysis
+- [Full Instructions](_instructions/starred-repository-scanner.md) - Complete setup guide
+- [Example Analysis](data/example-starred-repos-analysis.md) - Workflow demonstration
+- [Implementation Notes](_thoughts/starred-repository-scanner-implementation.md) - Design decisions
 
 ## 🌐 GitHub Pages Site
 

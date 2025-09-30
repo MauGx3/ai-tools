@@ -46,8 +46,9 @@ Personal reflections and experimental ideas:
 
 Automatically scan and analyze your GitHub starred repositories with AI:
 
+- **[Getting Started Guide](/docs/guides/starred-repository-scanner/)** - 5-minute quick start
 - **[Repository Analyzer Prompt](/prompts/repository-analyzer/)** - AI prompt for repository analysis
-- **[Scanner Guide](/instructions/starred-repository-scanner/)** - Complete setup and usage instructions
+- **[Full Instructions](/instructions/starred-repository-scanner/)** - Complete setup and usage guide
 - **[Example Analysis](/data/example-starred-repos-analysis.md)** - See the complete workflow in action
 
 **Quick Start:**

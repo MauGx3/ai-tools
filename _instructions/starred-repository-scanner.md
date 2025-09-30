@@ -6,7 +6,6 @@ time_required: "30-60 minutes for initial setup"
 prerequisites: "GitHub account, GitHub MCP server access or GitHub API token"
 description: "Automated workflow to scan, analyze, and categorize your starred GitHub repositories using AI"
 tags: ["github", "automation", "repository-analysis", "starred-repos", "AI"]
-categories: ["automation", "productivity"]
 ---
 
 This guide provides step-by-step instructions for setting up an automated workflow to scan your GitHub starred repositories, generate AI-powered descriptions, and organize them with relevant keywords and use cases.

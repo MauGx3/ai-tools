@@ -11,6 +11,7 @@ Comprehensive guides, references, and examples for using AI tools effectively.
 Detailed tutorials and walkthroughs for various AI tool workflows.
 
 - [Getting Started Guide](guides/getting-started.md) - New to AI tools? Start here
+- [Starred Repository Scanner](guides/starred-repository-scanner.md) - Scan and analyze your GitHub starred repositories
 - [Prompt Engineering Guide](guides/prompt-engineering.md) - Learn to write effective prompts
 - [Workflow Optimization Guide](guides/workflow-optimization.md) - Maximize your productivity
 - [Integration Guide](guides/integration.md) - Integrate AI tools into your existing workflow

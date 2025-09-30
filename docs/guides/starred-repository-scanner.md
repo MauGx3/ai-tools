@@ -1,14 +1,25 @@
-# Quick Start: Starred Repository Scanner
+# Getting Started with Starred Repository Scanner
 
-Get started analyzing your GitHub starred repositories with AI in under 5 minutes.
+A quick guide to scanning and analyzing your GitHub starred repositories with AI-powered insights.
 
-## Prerequisites
+## What is the Starred Repository Scanner?
+
+The Starred Repository Scanner is an automated workflow that helps you:
+- Fetch all repositories you've starred on GitHub
+- Generate AI-enhanced descriptions for each repository
+- Extract keywords and potential use cases
+- Organize repositories by language, category, and use case
+- Export structured data for easy searching and filtering
+
+## Quick Start (5 Minutes)
+
+### Prerequisites
 
 - Python 3.8 or higher
 - GitHub account with starred repositories
 - GitHub Personal Access Token (optional but recommended)
 
-## Step 1: Install Dependencies
+### Step 1: Install Dependencies
 
 ```bash
 pip install requests
@@ -16,7 +27,7 @@ pip install requests
 
 That's it! Only one dependency needed.
 
-## Step 2: Get GitHub Token (Optional)
+### Step 2: Get GitHub Token (Optional)
 
 For scanning your own starred repositories:
 
@@ -25,7 +36,7 @@ For scanning your own starred repositories:
 3. Select scope: `public_repo` or `repo`
 4. Copy the token
 
-## Step 3: Scan Your Starred Repositories
+### Step 3: Run Your First Scan
 
 ```bash
 # Set your token (recommended)
@@ -48,7 +59,7 @@ This will scan your first 10 starred repositories and save the results.
 - `--include-languages`: Fetches language breakdown with percentages
 - `--include-readme`: Includes README previews for deeper AI analysis
 
-## Step 4: Review the Output
+### Step 4: Review the Output
 
 ```bash
 # View the results
@@ -82,9 +93,9 @@ You'll see structured data like:
 }
 ```
 
-## Step 5: Analyze with AI
+### Step 5: Analyze with AI
 
-Now use the [Repository Analyzer prompt](_prompts/repository-analyzer.md) to enhance each repository:
+Now use the [Repository Analyzer prompt](../../_prompts/repository-analyzer.md) to enhance each repository:
 
 1. Open your AI assistant (GitHub Copilot, Claude, ChatGPT, etc.)
 2. Copy the Repository Analyzer prompt
@@ -105,7 +116,7 @@ Example output from AI:
 - **Keywords**: javascript-library, ui-framework, component-based, ...
 - **Use Cases**: Building Modern Web Applications, Cross-Platform Mobile Development, ...
 
-## Step 6: Organize Your Results
+### Step 6: Organize Your Results
 
 Build a searchable database:
 - Group by language
@@ -113,7 +124,7 @@ Build a searchable database:
 - Search by keywords
 - Track learning priorities
 
-See [example-starred-repos-analysis.md](data/example-starred-repos-analysis.md) for inspiration.
+See [example analysis](../../data/example-starred-repos-analysis.md) for inspiration.
 
 ## Common Commands
 
@@ -162,17 +173,43 @@ python scripts/scan_starred_repos.py --limit 5
 
 ## Learn More
 
-- **Full Guide**: [_instructions/starred-repository-scanner.md](_instructions/starred-repository-scanner.md)
-- **Prompt Template**: [_prompts/repository-analyzer.md](_prompts/repository-analyzer.md)
-- **Example Analysis**: [data/example-starred-repos-analysis.md](data/example-starred-repos-analysis.md)
-- **Script Details**: [scripts/README.md](scripts/README.md)
+- **Full Guide**: [Starred Repository Scanner Instructions](../../_instructions/starred-repository-scanner.md)
+- **AI Prompt**: [Repository Analyzer](../../_prompts/repository-analyzer.md)
+- **Example Analysis**: [Complete Workflow](../../data/example-starred-repos-analysis.md)
+- **Implementation Notes**: [Design Decisions](../../_thoughts/starred-repository-scanner-implementation.md)
+- **Script Documentation**: [Scanner Script Details](../../scripts/README.md)
 
-## Support
+## Features Overview
 
-Questions or issues?
-- Check the [full documentation](_instructions/starred-repository-scanner.md)
-- Review [example output](data/example-starred-repos-analysis.md)
-- Open an issue on GitHub
+### Automated Scanning
+- Fetch all starred repositories via GitHub API
+- Pagination support for large collections
+- Rate limit monitoring and handling
+- Comprehensive error handling
+
+### Enhanced Descriptions
+- Automatic generation from repository metadata
+- Combines description, topics, language, and popularity
+- README analysis for deeper insights
+- Multiple levels: brief, standard, and detailed
+
+### Language Analysis
+- Percentage breakdown of languages used
+- Understand polyglot projects
+- Tech stack composition at a glance
+
+### AI-Powered Analysis
+- Multi-level description generation
+- Keyword extraction (8-15 relevant items)
+- Use case identification with examples
+- Technical assessment and comparisons
+- Integration opportunities
+
+### Flexible Output
+- Structured JSON format
+- Machine-readable and human-friendly
+- Easy filtering and searching
+- Export to various formats
 
 ---
 
