@@ -52,7 +52,7 @@ This code will be mostly deployed as a Docker container, so there should be a fo
 
 ### Foundations
 
-This code will be mostly deployed as a Docker container, so there should be a focus on maintain security and performance for a Docker app. For my personal use, I will run the app on a QNAP NAS running QTS 5. A large amount of data will be expected to be used as the app develops and the user collects more data, so consider best practices for following Big Data performance.
+This code will be mostly deployed as a Docker container, so there should be a focus on maintaining security and performance for a Docker app. For my personal use, I will run the app on a QNAP NAS running QTS 5. A large amount of data will be expected to be used as the app develops and the user collects more data, so consider best practices for following Big Data performance.
 
 ## Usage Guidelines
 
