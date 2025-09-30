@@ -42,6 +42,21 @@ Personal reflections and experimental ideas:
 - **Experiments**: Testing new approaches and techniques
 - **Ideas**: Future improvements and potential projects
 
+## 🤖 Featured: Starred Repository Scanner
+
+Automatically scan and analyze your GitHub starred repositories with AI:
+
+- **[Repository Analyzer Prompt](/prompts/repository-analyzer/)** - AI prompt for repository analysis
+- **[Scanner Guide](/instructions/starred-repository-scanner/)** - Complete setup and usage instructions
+- **[Example Analysis](/data/example-starred-repos-analysis.md)** - See the complete workflow in action
+
+**Quick Start:**
+```bash
+pip install requests
+export GITHUB_TOKEN="your_token"
+python scripts/scan_starred_repos.py --output data/starred-repos.json
+```
+
 ## Repository Structure
 
 ```
@@ -49,6 +64,8 @@ ai-tools/
 ├── prompts/          # Categorized AI prompts
 ├── instructions/     # Step-by-step guides
 ├── modes/           # AI interaction modes
+├── scripts/         # Automation scripts (e.g., starred repo scanner)
+├── data/            # Output from automation scripts
 ├── docs/            # Documentation and guides
 ├── thoughts/        # Personal insights and experiments
 ├── _layouts/        # Jekyll page layouts

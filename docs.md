@@ -30,6 +30,14 @@ Sample implementations and real-world use cases.
 - [Documentation Examples](examples/documentation.md) - AI-generated documentation samples
 - [Analysis Examples](examples/analysis.md) - Data analysis and research examples
 - [Creative Writing Examples](examples/creative-writing.md) - Creative AI applications
+- [Starred Repository Analysis](../data/example-starred-repos-analysis.md) - Complete workflow for analyzing GitHub stars
+
+## 🤖 Automation Tools
+AI-powered scripts and workflows.
+
+- [Starred Repository Scanner](../_instructions/starred-repository-scanner.md) - Scan and analyze GitHub starred repositories
+- [Repository Analyzer Prompt](../_prompts/repository-analyzer.md) - AI prompt for repository analysis
+- [Scanner Script Documentation](../scripts/README.md) - Technical details for automation scripts
 
 ## Repository Documentation
 
