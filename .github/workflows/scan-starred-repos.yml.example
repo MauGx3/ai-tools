@@ -1,0 +1,118 @@
+name: Scan Starred Repositories
+
+# This is an example workflow for automatically scanning starred repositories.
+# To use this workflow:
+# 1. Rename this file to scan-starred-repos.yml (remove .example)
+# 2. Uncomment the schedule trigger or use workflow_dispatch for manual runs
+# 3. Ensure GITHUB_TOKEN has appropriate permissions
+
+on:
+  # Uncomment to run weekly on Sundays at midnight UTC
+  # schedule:
+  #   - cron: '0 0 * * 0'
+  
+  # Allow manual trigger from Actions tab
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Maximum number of repositories to scan (leave empty for all)'
+        required: false
+        type: number
+      include_readme:
+        description: 'Include README previews (slower)'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write  # Needed to commit results back to repo
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: Scan starred repositories
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Build command with optional parameters
+          CMD="python scripts/scan_starred_repos.py --output data/starred-repos.json"
+          
+          if [ -n "${{ inputs.limit }}" ]; then
+            CMD="$CMD --limit ${{ inputs.limit }}"
+          fi
+          
+          if [ "${{ inputs.include_readme }}" = "true" ]; then
+            CMD="$CMD --include-readme"
+          fi
+          
+          echo "Running: $CMD"
+          $CMD
+      
+      - name: Check if results changed
+        id: check_changes
+        run: |
+          if git diff --quiet data/starred-repos.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes detected in starred repositories"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Changes detected in starred repositories"
+          fi
+      
+      - name: Commit results
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/starred-repos.json
+          git commit -m "Update starred repositories scan [automated]"
+          git push
+      
+      - name: Upload results as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: starred-repos-scan
+          path: data/starred-repos.json
+          retention-days: 30
+
+      - name: Summary
+        run: |
+          echo "## Starred Repositories Scan Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f data/starred-repos.json ]; then
+            TOTAL=$(jq '.total_repositories' data/starred-repos.json)
+            SCAN_DATE=$(jq -r '.scan_date' data/starred-repos.json)
+            
+            echo "- **Total Repositories**: $TOTAL" >> $GITHUB_STEP_SUMMARY
+            echo "- **Scan Date**: $SCAN_DATE" >> $GITHUB_STEP_SUMMARY
+            echo "- **Output**: \`data/starred-repos.json\`" >> $GITHUB_STEP_SUMMARY
+            
+            if [ "${{ steps.check_changes.outputs.changed }}" = "true" ]; then
+              echo "- **Status**: ✅ Changes committed" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- **Status**: ℹ️ No changes since last scan" >> $GITHUB_STEP_SUMMARY
+            fi
+            
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Next Steps" >> $GITHUB_STEP_SUMMARY
+            echo "Use the [Repository Analyzer prompt](_prompts/repository-analyzer.md) to generate:" >> $GITHUB_STEP_SUMMARY
+            echo "- Enhanced descriptions" >> $GITHUB_STEP_SUMMARY
+            echo "- Keywords and use cases" >> $GITHUB_STEP_SUMMARY
+            echo "- Category classifications" >> $GITHUB_STEP_SUMMARY
+          fi
