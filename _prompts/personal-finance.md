@@ -39,7 +39,16 @@ Keep the code accessible to junior developers where possible, but don't let it b
 
 ### Format
 
-Code should follow Pythonic foundations. Use Google documentation guidelines for the Python code. This project was started by using the [cookiecutter-django] template. Formatter is `ruff`, `uv` should be preferred over `pip` when available. Tests will be done using `pytest`. Use `docker-compose` for local development and testing. Use `git` for version control, with a branching strategy that uses `main` as production-ready code, and `dev` as the main development branch. Feature branches should be used for specific features or bug fixes. The code should follow the "Easier to ask for forgiveness than permission" or EAFP style unless LBYL is assessed to be a better option for that particular block of code.
+- **Code Style**: Follow Pythonic foundations.
+- **Documentation**: Use Google documentation guidelines for Python code.
+- **Project Template**: Started using the [cookiecutter-django] template.
+- **Formatter**: Use `ruff` for code formatting.
+- **Package Management**: Prefer `uv` over `pip` when available.
+- **Testing**: Use `pytest` for tests.
+- **Local Development**: Use `docker-compose` for local development and testing.
+- **Version Control**: Use `git` for version control.
+- **Branching Strategy**: Use `main` as production-ready, `dev` as the main development branch, and feature branches for specific features or bug fixes.
+- **Coding Style**: Follow the "Easier to ask for forgiveness than permission" (EAFP) style unless "Look before you leap" (LBYL) is assessed to be a better option for a particular block of code.
 
 ### Foundations
 
