@@ -57,6 +57,15 @@ ai-tools/
 4. **Provide Examples**: Include usage examples where applicable
 5. **Test Your Content**: Ensure prompts and instructions work as expected
 
+#### Commit Conventions
+
+This project follows [Conventional Commits](contributing/conventional-commits.md) specification:
+- Use structured commit messages (e.g., `feat:`, `fix:`, `docs:`)
+- Enable automatic changelog generation
+- Maintain a readable git history
+
+See the [Conventional Commits Guide](contributing/conventional-commits.md) for details.
+
 #### Content Standards
 
 - **Clear Titles**: Use descriptive, searchable titles
