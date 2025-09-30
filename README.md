@@ -124,7 +124,7 @@ For detailed documentation, including:
 - Best practices and workflows
 - Technical implementation details
 
-Visit the [Documentation section](docs.md) or the live site.
+Visit the [Documentation section](docs/) or the live site.
 
 ## 📄 License
 
