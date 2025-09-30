@@ -11,25 +11,11 @@ Comprehensive guides, references, and examples for using AI tools effectively.
 Detailed tutorials and walkthroughs for various AI tool workflows.
 
 - [Getting Started Guide](guides/getting-started.md) - New to AI tools? Start here
-- [Prompt Engineering Guide](guides/prompt-engineering.md) - Learn to write effective prompts
-- [Workflow Optimization Guide](guides/workflow-optimization.md) - Maximize your productivity
-- [Integration Guide](guides/integration.md) - Integrate AI tools into your existing workflow
 
 ## 📖 References
 Quick reference materials and cheat sheets.
 
 - [Prompt Templates](references/prompt-templates.md) - Ready-to-use prompt templates
-- [Model Comparison](references/model-comparison.md) - Compare different AI models
-- [Best Practices Checklist](references/best-practices.md) - Quick reference for best practices
-- [Troubleshooting Guide](references/troubleshooting.md) - Common issues and solutions
-
-## 💡 Examples
-Sample implementations and real-world use cases.
-
-- [Code Review Examples](examples/code-review.md) - AI-assisted code review workflows
-- [Documentation Examples](examples/documentation.md) - AI-generated documentation samples
-- [Analysis Examples](examples/analysis.md) - Data analysis and research examples
-- [Creative Writing Examples](examples/creative-writing.md) - Creative AI applications
 
 ## Repository Documentation
 
