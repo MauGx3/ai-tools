@@ -7,30 +7,32 @@ prerequisites: "GitHub Copilot access, basic understanding of code review princi
 description: "Comprehensive agentic instructions for automated code review using GitHub Copilot and AI agents"
 tags: ["code review", "copilot", "AI", "best practices"]
 categories: ["automation"]
-applyTo: ["*.md", "*.js", "*.ts", "*.py", "*.java", "*.go", "*.rb", "*.php", "*.cs", "*.cpp", "*.c", "*.h", "*.jsx", "*.tsx", "*.vue", "*.swift", "*.kt"]
+applyTo: ["**"]
 ---
 
 This guide provides actionable instructions for conducting effective automated code reviews using GitHub Copilot and other AI agents. These instructions are designed for both human reviewers leveraging AI tools and autonomous AI agents performing reviews.
 
 ## Core Review Principles
 
-### 1. Understand Before Critiquing
-- Read and comprehend the entire change before commenting
-- Identify the intent and context of the modifications
-- Consider the business requirements driving the change
-- Review related documentation and linked issues
+Based on industry best practices from Google's Engineering Practices, Microsoft's Code Review guidelines, and research from publications like "Best Kept Secrets of Peer Code Review" (SmartBear):
 
-### 2. Be Kind and Constructive
-- Assume positive intent from the author
-- Frame feedback as questions or suggestions, not commands
-- Praise good solutions and improvements
-- Focus on the code, not the person
+### 1. Review Intent, Not Just Implementation
+- Understand the problem being solved before critiquing the solution
+- Verify that the change aligns with the stated requirements
+- Check if the approach is appropriate for the problem scope
+- Consider alternative solutions that might be simpler or more maintainable
 
-### 3. Provide Actionable Feedback
-- Be specific about issues and proposed solutions
-- Include code examples for suggested improvements
-- Explain the reasoning behind recommendations
-- Link to relevant documentation or standards
+### 2. Focus on Impact and Correctness
+- Prioritize correctness, security, and performance over style
+- Identify bugs, logic errors, and edge cases
+- Review error handling and failure scenarios
+- Verify that the code does what it claims to do
+
+### 3. Be Objective and Specific
+- Provide concrete examples and suggest specific improvements
+- Reference documentation, standards, or similar code in the codebase
+- Distinguish between "must fix" issues and optional suggestions
+- Use facts and reasoning rather than personal preference
 
 ## Automated Review Checklist
 
@@ -86,6 +88,8 @@ This guide provides actionable instructions for conducting effective automated c
 
 ## AI Agent Instructions
 
+> **Note**: For comprehensive MCP tools reference, see `mcp-tools-reference.md` which provides detailed documentation on all available tools for code review automation.
+
 ### Review Analysis Process
 
 1. **Initial Assessment**
@@ -97,6 +101,9 @@ This guide provides actionable instructions for conducting effective automated c
 2. **Systematic Evaluation**
    - Apply the automated review checklist systematically
    - Use `github-mcp-server-get_file_contents` to view full file context when needed
+   - Use `github-mcp-server-list_code_scanning_alerts` for security vulnerabilities
+   - Use `github-mcp-server-list_secret_scanning_alerts` for exposed credentials
+   - Use `github-mcp-server-search_code` to find similar patterns in codebase
    - Categorize findings by severity (Critical, Major, Minor)
    - Document specific line numbers and file locations
    - Prepare actionable recommendations
@@ -132,11 +139,18 @@ Use this concise format:
 ### Severity Guidelines
 
 **Critical (🚨)**: Must be fixed before merge
-- Security vulnerabilities
+- Security vulnerabilities (including known CVEs in dependencies)
 - Data corruption risks
 - Breaking changes without migration path
 - Resource leaks that impact stability
 - Logic errors causing incorrect behavior
+
+**Dependency Vulnerability Check**:
+- Use `npm audit`, `pip check`, `bundle audit`, or equivalent to identify CVEs
+- Check NIST NVD, GitHub Security Advisories, and Snyk databases
+- Report CVSS score and severity (Critical: 9.0-10.0, High: 7.0-8.9)
+- Verify if patches or updated versions are available
+- Recommend immediate action for exploitable vulnerabilities
 
 **Major (⚠️)**: Should be fixed before merge
 - Performance issues affecting user experience
@@ -165,10 +179,39 @@ Use this concise format:
 - **Pre-merge**: Final validation check
 
 ### Review Comments
-- Place inline comments at specific lines
-- Link to relevant documentation
-- Reference similar patterns in the codebase
-- Suggest related improvements in context
+
+Follow GitHub's code review best practices:
+
+**Comment Placement**:
+- Use inline comments for specific line issues
+- Use general comments for overall architectural feedback
+- Start review threads at the appropriate line, not at random locations
+- Use "suggestion" blocks for simple fixes that can be applied directly
+
+**Comment Structure** (based on Conventional Comments):
+- `suggestion:` For proposed code changes
+- `issue:` For problems that need to be addressed
+- `question:` For clarifications needed
+- `nitpick:` For minor, optional improvements
+- `praise:` (use sparingly) For particularly good solutions
+
+**Comment Quality**:
+- Be specific: Reference exact lines, variables, or functions
+- Provide rationale: Explain why something is an issue
+- Offer solutions: Don't just point out problems
+- Link to resources: Standards, docs, or similar code examples
+- Keep it brief: One issue per comment when possible
+
+**Example Format**:
+```
+issue: This SQL query is vulnerable to injection attacks.
+
+The user input on line 45 is directly concatenated into the query string.
+Use parameterized queries instead:
+`cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))`
+
+Reference: OWASP SQL Injection Prevention
+```
 
 ### False Positive Handling
 - Allow developers to mark false positives
@@ -187,10 +230,10 @@ Use this concise format:
 
 ### Effective Communication
 - Use clear, concise language without jargon
-- Frame suggestions as questions when appropriate: "Consider X because Y?"
-- Acknowledge when you're uncertain: "This might be an issue, but please verify"
-- Respect existing patterns: "I see this pattern elsewhere; is there a reason for the difference?"
-- Celebrate improvements: "This change addresses the previous concern well"
+- Frame suggestions as questions when uncertain: "Could X improve Y?"
+- Acknowledge uncertainty explicitly: "This may be an issue, please verify"
+- Reference existing patterns: "Line 50 uses pattern X; is there a reason for the difference here?"
+- State facts objectively without unnecessary praise or criticism
 
 ### Collaboration Protocol
 - **Initial Review**: Provide automated feedback on common issues
@@ -225,8 +268,33 @@ Use this concise format:
 ✅ Focus on changes in the current PR
 
 ### Style Over Substance
-❌ Nitpicking formatting issues
-✅ Prioritize functional and security concerns
+❌ Nitpicking formatting issues individually
+✅ Consolidate all formatting issues into a single, actionable comment
+
+**For Multiple Formatting Issues**:
+Instead of commenting on each formatting violation, consolidate them:
+
+```
+suggestion: Multiple formatting inconsistencies detected. Run the project's formatter:
+
+npm run format           # For JavaScript/TypeScript projects
+black .                  # For Python projects
+gofmt -w .              # For Go projects
+dotnet format           # For .NET projects
+
+Or configure your editor to format on save.
+
+Issues found:
+- Lines 15, 23, 45: Inconsistent indentation
+- Lines 30-35: Missing trailing commas
+- Lines 50, 67: Inconsistent quote style
+```
+
+This approach:
+- Saves reviewer time
+- Provides actionable solution
+- Avoids cluttering the review with minor style comments
+- Delegates formatting to automated tools
 
 ### Missing Context
 ❌ Reviewing code in isolation
@@ -236,11 +304,28 @@ Use this concise format:
 
 Track these indicators to measure review effectiveness:
 
-- **Issue Detection Rate**: Percentage of bugs caught in review
-- **Review Turnaround Time**: Time from PR creation to review
-- **False Positive Rate**: Incorrect automated suggestions
-- **Developer Satisfaction**: Feedback quality ratings
-- **Code Quality Metrics**: Post-merge defect rates
+**Quality Metrics**:
+- **Issue Detection Rate**: Target 70-85% of bugs caught in review (industry benchmark)
+- **False Positive Rate**: Keep below 15% (< 15 incorrect suggestions per 100 comments)
+- **Defect Density**: Track post-merge defects per 1000 lines of code (target: < 1.0)
+- **Critical Issues Found**: Number of security/correctness issues caught before merge
+
+**Efficiency Metrics**:
+- **Review Turnaround Time**: Target < 24 hours from PR creation to review
+- **Review Thoroughness**: Comments per 100 lines of code changed (typical: 3-7)
+- **Fix Cycle Time**: Time from comment to resolution (target: < 4 hours)
+- **Review Size**: Lines of code per review (optimal: 200-400 LOC)
+
+**Collaboration Metrics**:
+- **Developer Satisfaction**: Survey score 4.0+ / 5.0
+- **Suggestion Acceptance Rate**: 60-80% of suggestions implemented
+- **Review Iterations**: Number of review cycles per PR (target: 1-2)
+- **Discussion Quality**: Resolved vs. dismissed threads ratio (target: > 80% resolved)
+
+**References**:
+- Cisco study: Best reviews are 200-400 LOC, taking 60-90 minutes
+- SmartBear research: Optimal review rate is < 500 LOC/hour
+- Microsoft study: Reviews with < 24h turnaround have 15% fewer defects
 
 ## Continuous Improvement
 
