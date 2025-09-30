@@ -1,3 +1,8 @@
+---
+layout: default
+title: Prompt Templates Reference
+---
+
 # Prompt Templates Reference
 
 Quick reference for creating effective AI prompts with consistent structure and metadata.

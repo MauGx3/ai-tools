@@ -1,3 +1,8 @@
+---
+layout: default
+title: Getting Started with AI Tools
+---
+
 # Getting Started with AI Tools
 
 Welcome to the AI Tools collection! This guide will help you get started with using and contributing to this repository.
