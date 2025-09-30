@@ -10,7 +10,7 @@ categories: ["automation"]
 applyTo: ["**"]
 ---
 
-This guide provides actionable instructions for conducting effective automated code reviews using GitHub Copilot and other AI agents. These instructions are designed for both human reviewers leveraging AI tools and autonomous AI agents performing reviews.
+This guide provides research-backed, actionable instructions for AI agents conducting automated code reviews. Based on industry best practices from Google, Microsoft, and SmartBear, these instructions focus on objective, measurable code quality assessment with comprehensive MCP tool integration for GitHub operations.
 
 ## Core Review Principles
 
@@ -88,22 +88,22 @@ Based on industry best practices from Google's Engineering Practices, Microsoft'
 
 ## AI Agent Instructions
 
-> **Note**: For comprehensive MCP tools reference, see `mcp-tools-reference.md` which provides detailed documentation on all available tools for code review automation.
+> **Note**: For comprehensive MCP tools reference, see `github-mcp-server-tools.md` which provides detailed documentation on GitHub-specific MCP tools for code review automation.
 
 ### Review Analysis Process
 
 1. **Initial Assessment**
-   - Use `github-mcp-server-get_pull_request` to retrieve PR details
-   - Use `github-mcp-server-get_pull_request_diff` to get the full diff
-   - Use `github-mcp-server-get_pull_request_files` to list all changed files
+   - Retrieve PR details using available tools
+   - Get the full diff of all changes
+   - List all changed files with statistics
    - Read commit messages and PR description for context
 
 2. **Systematic Evaluation**
    - Apply the automated review checklist systematically
-   - Use `github-mcp-server-get_file_contents` to view full file context when needed
-   - Use `github-mcp-server-list_code_scanning_alerts` for security vulnerabilities
-   - Use `github-mcp-server-list_secret_scanning_alerts` for exposed credentials
-   - Use `github-mcp-server-search_code` to find similar patterns in codebase
+   - View full file context when needed for better understanding
+   - Check for security vulnerabilities using available scanning tools
+   - Check for exposed credentials or secrets
+   - Search for similar patterns in the codebase for consistency
    - Categorize findings by severity (Critical, Major, Minor)
    - Document specific line numbers and file locations
    - Prepare actionable recommendations
@@ -170,7 +170,7 @@ Use this concise format:
 
 ## Integration with CI/CD
 
-> **Note**: Prepare your CI/CD pipeline to support language-specific review instructions. Create separate instruction files for each language (e.g., `copilot-instructions-python.md`, `copilot-instructions-javascript.md`) and configure your pipeline to load the appropriate instructions based on the file type being reviewed.
+> **For Human Developers**: See `README.md` for instructions on setting up language-specific review workflows. Create separate instruction files for each language (e.g., `copilot-instructions-python.md`, `copilot-instructions-javascript.md`) and configure your CI/CD pipeline to load the appropriate instructions based on the file type being reviewed.
 
 ### Automated Review Triggers
 - **Pull Request Creation**: Initial automated review
@@ -337,11 +337,11 @@ Track these indicators to measure review effectiveness:
 5. **Share Insights**: Document lessons learned for future reviews
 
 ### Self-Improvement for AI Agents
-- **After Each Review**: Note which findings were validated by humans
-- **Weekly**: Analyze acceptance rate of different types of suggestions
-- **Monthly**: Identify categories where accuracy can improve
-- **Quarterly**: Evaluate if new types of issues should be added to checklist
-- **Continuously**: Learn project-specific patterns and conventions
+- **After Each Review**: Use `git log` to check if flagged issues were fixed in subsequent commits
+- **Track Metrics**: Monitor which comment threads are marked as resolved vs. dismissed
+- **Learn Patterns**: Use `git blame` and `git log -p` to understand code evolution and team preferences
+- **Update Rules**: When humans override suggestions, document the pattern in project-specific configuration
+- **Continuous Learning**: Use repository's `.github/` configuration files to understand team workflows
 
 ### Adaptation Strategies
 - If false positive rate is high: Be more conservative, require stronger evidence

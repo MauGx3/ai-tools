@@ -1,15 +1,15 @@
 ---
-title: "MCP Tools Reference for Code Review"
+title: "GitHub MCP Server Tools Reference"
 type: "usage"
 difficulty: "intermediate"
 time_required: "10 minutes"
 prerequisites: "Understanding of MCP (Model Context Protocol) and GitHub API"
-description: "Comprehensive reference for MCP tools available for automated code review tasks"
-tags: ["MCP", "tools", "GitHub", "automation"]
+description: "Comprehensive reference for github-mcp-server tools for automated code review"
+tags: ["MCP", "github-mcp-server", "GitHub", "automation"]
 categories: ["reference"]
 ---
 
-This reference guide lists all available MCP tools for conducting automated code reviews, with usage examples and best practices.
+This reference guide documents all available tools from the `github-mcp-server` for conducting automated code reviews, with usage examples and best practices.
 
 ## GitHub Pull Request Tools
 
@@ -519,15 +519,16 @@ const testFiles = files.filter(f => f.filename.includes('test'));
 
 ## Integration with Review Instructions
 
-This MCP tools reference complements the main `copilot-instructions.md` file. When conducting a review:
+This `github-mcp-server` tools reference complements the main `copilot-instructions.md` file. When conducting a review using `github-mcp-server`:
 
-1. Use tools from this reference in the "Review Analysis Process"
+1. Use `github-mcp-server` tools from this reference in the "Review Analysis Process"
 2. Apply the checklists from the main instructions
 3. Format output according to the main instructions' guidelines
 4. Follow severity classifications from the main instructions
 
 ## Additional Resources
 
+- [GitHub MCP Server Repository](https://github.com/modelcontextprotocol/servers)
 - [GitHub REST API Documentation](https://docs.github.com/en/rest)
 - [GitHub GraphQL API Documentation](https://docs.github.com/en/graphql)
 - [MCP Protocol Specification](https://modelcontextprotocol.io/)
