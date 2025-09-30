@@ -32,14 +32,14 @@ check_page() {
     local path=$1
     local url="${BASE_URL}${path}"
     local description=$2
-    
+
     TOTAL_PAGES=$((TOTAL_PAGES + 1))
-    
+
     printf "Checking: %-60s " "$description"
-    
+
     # Use curl to check if page returns 200
     HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$url" 2>/dev/null || echo "000")
-    
+
     if [ "$HTTP_CODE" = "200" ]; then
         echo -e "${GREEN}✓ PASS${NC} (HTTP $HTTP_CODE)"
         PASSED_PAGES=$((PASSED_PAGES + 1))
