@@ -389,7 +389,7 @@ While the core principles are universal, each language has specific patterns and
 - `code-review-instructions-python.md`: Python-specific patterns (PEP 8, type hints, generators, etc.)
 - `code-review-instructions-javascript.md`: JavaScript/TypeScript patterns (async/await, TypeScript types, etc.)
 - `code-review-instructions-java.md`: Java patterns (null safety, streams, exception handling, etc.)
-- `code-review-instructions-go.md`: Go patterns (error handling, goroutines, interfaces, etc.)
+- `code-review-instructions-go.md` _(planned)_: Go patterns (error handling, goroutines, interfaces, etc.)
 
 ## Additional Resources
 
