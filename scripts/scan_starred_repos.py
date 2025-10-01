@@ -165,48 +165,48 @@ class StarredRepoScanner:
             Enhanced description string
         """
         base_description = repo.get("description", "")
-        
+
         # Start with base description
         enhanced_parts = []
-        
+
         if base_description:
             enhanced_parts.append(base_description)
-        
+
         # Add context from topics
         topics = repo.get("topics", [])
         if topics and len(topics) > 0:
             topic_str = ", ".join(topics[:5])  # First 5 topics
             enhanced_parts.append(f"Topics: {topic_str}")
-        
+
         # Add language context
         language = repo.get("language")
         if language:
             enhanced_parts.append(f"Built with {language}")
-        
+
         # Add activity indicators
         stars = repo.get("stargazers_count", 0)
         if stars > 1000:
             enhanced_parts.append(f"Popular project with {stars:,} stars")
         elif stars > 100:
             enhanced_parts.append(f"Active project with {stars} stars")
-        
+
         # Extract key phrases from README if available
         if readme:
             # Look for common README sections
             readme_lower = readme.lower()
-            
+
             # Check for key indicators
             if "cli" in readme_lower or "command-line" in readme_lower or "command line" in readme_lower:
                 enhanced_parts.append("Command-line tool")
-            
+
             if "framework" in readme_lower:
                 enhanced_parts.append("Framework")
             elif "library" in readme_lower:
                 enhanced_parts.append("Library")
-            
+
             if "api" in readme_lower and ("rest" in readme_lower or "graphql" in readme_lower):
                 enhanced_parts.append("Provides API functionality")
-        
+
         return " | ".join(enhanced_parts) if enhanced_parts else "No description available"
 
     def extract_metadata(self, repo: Dict, include_readme: bool = False, include_languages: bool = False, enhance_description: bool = False) -> Dict:
@@ -253,7 +253,7 @@ class StarredRepoScanner:
             if readme_content:
                 # Truncate to first 2000 characters to keep manageable for AI
                 metadata["readme_preview"] = readme_content[:2000]
-        
+
         # Fetch language breakdown
         if include_languages:
             languages = self.fetch_languages(repo["owner"]["login"], repo["name"])
