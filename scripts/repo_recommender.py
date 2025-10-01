@@ -200,8 +200,8 @@ class ProjectContext:
             try:
                 with open(pkg_file, "r", encoding="utf-8") as f:
                     pkg_data = json.load(f)
-                    self.description = (
-                        self.description or pkg_data.get("description", "")
+                    self.description = self.description or pkg_data.get(
+                        "description", ""
                     )
 
                     # Extract dependencies
@@ -385,9 +385,7 @@ class RepositoryRecommender:
             project_embedding = self.model.encode([project_text])[0]
 
             # Generate embeddings for repositories
-            repo_texts = [
-                self._get_repo_text(repo) for repo in repos
-            ]
+            repo_texts = [self._get_repo_text(repo) for repo in repos]
             repo_embeddings = self.model.encode(repo_texts)
             print("Embeddings generated")
 
@@ -469,9 +467,7 @@ class RepositoryRecommender:
             and cosine_similarity is not None
         ):
             semantic_score = float(
-                cosine_similarity(
-                    [project_embedding], [repo_embedding]
-                )[0][0]
+                cosine_similarity([project_embedding], [repo_embedding])[0][0]
             )
             if semantic_score > 0.7:
                 reasoning.append(
@@ -626,9 +622,9 @@ class RepositoryRecommender:
         self, repo: Dict, score: RecommendationScore
     ) -> str:
         """Categorize repository based on content and score"""
-        desc = repo.get('description', '')
-        enhanced = repo.get('enhanced_description', '')
-        topics = ' '.join(repo.get('topics', []))
+        desc = repo.get("description", "")
+        enhanced = repo.get("enhanced_description", "")
+        topics = " ".join(repo.get("topics", []))
         repo_text = f"{desc} {enhanced} {topics}".lower()
 
         # Check each category
@@ -701,9 +697,7 @@ class RepositoryRecommender:
                     f"- Tech Stack Match: {rec.score.tech_stack_score:.2f}"
                 )
                 lines.append(f"- Topic Overlap: {rec.score.topic_score:.2f}")
-                lines.append(
-                    f"- Popularity: {rec.score.popularity_score:.2f}"
-                )
+                lines.append(f"- Popularity: {rec.score.popularity_score:.2f}")
                 lines.append(f"- Recency: {rec.score.recency_score:.2f}\n")
 
                 # Reasoning
