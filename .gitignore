@@ -31,4 +31,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
+
+# Environment variables file
 .env
