@@ -528,14 +528,71 @@ Examples:
             )
             sys.exit(1)
 
-        # Determine starred repos file
-        starred_file = args.output or "repos/starred-repos.json"
-        if not os.path.exists(starred_file):
+        # Helper: find latest starred_repos file in results/
+        def find_latest_results_file(
+            username_hint: Optional[str] = None,
+        ) -> Optional[str]:
+            results_dir = os.path.join(os.getcwd(), "results")
+            if not os.path.isdir(results_dir):
+                return None
+            candidates = []
+            for name in os.listdir(results_dir):
+                if name.startswith("starred_repos_") and name.endswith(
+                    ".json"
+                ):
+                    if username_hint and username_hint not in name:
+                        # still allow other files if none match username later
+                        pass
+                    candidates.append(os.path.join(results_dir, name))
+            if not candidates:
+                return None
+            # return newest by modification time
+            candidates.sort(key=lambda p: os.path.getmtime(p), reverse=True)
+            return candidates[0]
+
+        # Determine starred repos file: prefer explicit output, then latest in results/, else run a quick scan to produce one
+        starred_file = None
+        if args.output:
+            starred_file = args.output
+        else:
+            # try to find latest results file
+            username_hint = None
+            # if username provided, use it as hint
+            if args.username:
+                username_hint = args.username
+            starred_file = find_latest_results_file(username_hint)
+
+        # If we still don't have a file, run a scan to produce one
+        if not starred_file or not os.path.exists(starred_file):
             print(
-                f"Error: Starred repos file not found: {starred_file}\n"
-                "Run without --recommend first to generate the data file."
+                "No existing starred repos file found; running a quick scan to generate one...",
+                file=sys.stderr,
+            )
+            scanner = StarredRepoScanner(
+                token=args.token, username=args.username
+            )
+            # run a short scan (honor other flags)
+            scanner.scan(
+                output_file=None,
+                per_page=args.per_page,
+                max_pages=args.max_pages,
+                include_readme=args.include_readme,
+                include_languages=args.include_languages,
+                enhance_description=args.enhance_description,
+                limit=args.limit,
+            )
+            # find the newest file now
+            starred_file = find_latest_results_file(args.username)
+
+        if not starred_file or not os.path.exists(starred_file):
+            print(
+                "Error: Could not locate or create starred repos file."
+                " Run the scanner first (without --recommend) or provide --output path.",
+                file=sys.stderr,
             )
             sys.exit(1)
+
+        print(f"Using starred repos file: {starred_file}")
 
         # Create recommender and generate recommendations
         recommender = RepositoryRecommender()
@@ -551,13 +608,28 @@ Examples:
             recommendations, args.recommend_format
         )
 
-        # Output report
+        # Output report to file if requested, otherwise recommender will auto-save
         if args.recommend_output:
-            with open(args.recommend_output, "w", encoding="utf-8") as f:
+            output_path = args.recommend_output
+            output_dir = os.path.dirname(output_path)
+            if output_dir:
+                os.makedirs(output_dir, exist_ok=True)
+            with open(output_path, "w", encoding="utf-8") as f:
                 f.write(report)
-            print(f"\nRecommendations saved to {args.recommend_output}")
+            print(f"\nRecommendations saved to {output_path}")
         else:
-            print("\n" + report)
+            # Let recommender module handle default saving behavior by saving here to results/
+            from datetime import datetime, timezone
+
+            timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+            ext = "md" if args.recommend_format == "markdown" else "txt"
+            default_path = os.path.join(
+                "results", f"recommendations_{timestamp}.{ext}"
+            )
+            os.makedirs(os.path.dirname(default_path), exist_ok=True)
+            with open(default_path, "w", encoding="utf-8") as f:
+                f.write(report)
+            print(f"\nRecommendations saved to {default_path}")
 
         return
 
