@@ -31,6 +31,12 @@ __pycache__/
 *$py.class
 *.so
 .Python
+.venv/
 
 # Environment variables file
 .env
+
+# Results directory - ignore generated output files
+results/
+# Keep .gitkeep to preserve directory structure
+!results/.gitkeep

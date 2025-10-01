@@ -1,0 +1,83 @@
+name: "Copilot Setup Steps"
+
+# Automatically run the setup steps when they are changed to allow for easy validation, and
+# allow manual testing through the repository's "Actions" tab
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+jobs:
+  # The job MUST be called `copilot-setup-steps` or it will not be picked up by Copilot.
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+
+    # Set the permissions to the lowest permissions possible needed for your steps.
+    # Copilot will be given its own token for its operations.
+    permissions:
+      # If you want to clone the repository as part of your setup steps, for example to install dependencies, you'll need the `contents: read` permission. If you don't clone the repository in your setup steps, Copilot will do this for you automatically after the steps complete.
+      contents: read
+
+    # You can define any steps you want, and they will run before the agent starts.
+    # If you do not check out your code, Copilot will do this for you.
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+
+      - name: Ensure virtualenv exists for Copilot
+        run: |
+          # Use a predictable venv path for Copilot tools
+          VENV_PATH=".venv"
+          if [ -d "$VENV_PATH" ]; then
+            echo "✓ Virtual environment $VENV_PATH already exists"
+          else
+            echo "→ Creating virtual environment at $VENV_PATH using 'uv venv'"
+            uv venv "$VENV_PATH"
+            echo "✓ Virtual environment created"
+          fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: Install Python dependencies
+        run: |
+          # Install all dependencies following the project's dependency structure
+          # This ensures Copilot has access to all packages needed for the entire project
+
+          # Install base dependencies (Django, finance libraries, core packages)
+          uv pip install -r requirements/base.txt -c constraints.txt --python .venv
+
+          # Install local development dependencies (testing, linting, documentation)
+          uv pip install -r requirements/local.txt -c constraints.txt --python .venv
+
+          # Install project in development mode with optional dev dependencies
+          uv pip install -e . --constraint constraints.txt --python .venv
+
+          # Ensure all development tools are available
+          uv pip install pytest-django coverage mypy ruff pre-commit --constraint constraints.txt --python .venv
+
+      - name: Verify installation
+        run: |
+          # Verify that key tools and libraries are available for Copilot
+          echo "✓ Verifying Python tools..."
+          .venv/bin/python --version
+          .venv/bin/pytest --version
+          .venv/bin/ruff --version
+
+          echo "✓ Verifying key libraries..."
+          .venv/bin/python -c "import django; print(f'Django {django.get_version()}')"
+          .venv/bin/python -c "import pandas; print(f'pandas {pandas.__version__}')"
+          .venv/bin/python -c "import yfinance; print('yfinance available')"
+
+          echo "✓ All dependencies installed successfully!"
