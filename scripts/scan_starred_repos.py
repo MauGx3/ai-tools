@@ -21,7 +21,9 @@ from urllib.parse import urljoin
 try:
     import requests
 except ImportError:
-    print("Error: requests library is required. Install with: pip install requests")
+    print(
+        "Error: requests library is required. Install with: pip install requests"
+    )
     sys.exit(1)
 
 
@@ -30,7 +32,9 @@ class StarredRepoScanner:
 
     BASE_URL = "https://api.github.com"
 
-    def __init__(self, token: Optional[str] = None, username: Optional[str] = None):
+    def __init__(
+        self, token: Optional[str] = None, username: Optional[str] = None
+    ):
         """
         Initialize scanner
 
@@ -48,9 +52,7 @@ class StarredRepoScanner:
         self.headers["Accept"] = "application/vnd.github.v3+json"
 
     def fetch_starred_repos(
-        self,
-        per_page: int = 100,
-        max_pages: Optional[int] = None
+        self, per_page: int = 100, max_pages: Optional[int] = None
     ) -> List[Dict]:
         """
         Fetch starred repositories
@@ -79,13 +81,22 @@ class StarredRepoScanner:
             response = requests.get(url, headers=self.headers, params=params)
 
             if response.status_code == 401:
-                print("Error: Authentication required. Set GITHUB_TOKEN environment variable.", file=sys.stderr)
+                print(
+                    "Error: Authentication required. Set GITHUB_TOKEN environment variable.",
+                    file=sys.stderr,
+                )
                 sys.exit(1)
             elif response.status_code == 404:
-                print(f"Error: User '{self.username}' not found.", file=sys.stderr)
+                print(
+                    f"Error: User '{self.username}' not found.",
+                    file=sys.stderr,
+                )
                 sys.exit(1)
             elif response.status_code != 200:
-                print(f"Error: API returned status code {response.status_code}", file=sys.stderr)
+                print(
+                    f"Error: API returned status code {response.status_code}",
+                    file=sys.stderr,
+                )
                 print(f"Response: {response.text}", file=sys.stderr)
                 sys.exit(1)
 
@@ -100,9 +111,14 @@ class StarredRepoScanner:
             # Check rate limit
             remaining = response.headers.get("X-RateLimit-Remaining")
             if remaining and int(remaining) < 10:
-                print(f"Warning: Only {remaining} API calls remaining", file=sys.stderr)
+                print(
+                    f"Warning: Only {remaining} API calls remaining",
+                    file=sys.stderr,
+                )
 
-        print(f"Fetched {len(all_repos)} starred repositories", file=sys.stderr)
+        print(
+            f"Fetched {len(all_repos)} starred repositories", file=sys.stderr
+        )
         return all_repos
 
     def fetch_readme(self, owner: str, repo: str) -> Optional[str]:
@@ -124,10 +140,14 @@ class StarredRepoScanner:
                 data = response.json()
                 # README content is base64 encoded
                 import base64
+
                 content = base64.b64decode(data["content"]).decode("utf-8")
                 return content
         except Exception as e:
-            print(f"Warning: Could not fetch README for {owner}/{repo}: {e}", file=sys.stderr)
+            print(
+                f"Warning: Could not fetch README for {owner}/{repo}: {e}",
+                file=sys.stderr,
+            )
 
         return None
 
@@ -149,11 +169,16 @@ class StarredRepoScanner:
             if response.status_code == 200:
                 return response.json()
         except Exception as e:
-            print(f"Warning: Could not fetch languages for {owner}/{repo}: {e}", file=sys.stderr)
+            print(
+                f"Warning: Could not fetch languages for {owner}/{repo}: {e}",
+                file=sys.stderr,
+            )
 
         return None
 
-    def generate_enhanced_description(self, repo: Dict, readme: Optional[str] = None) -> str:
+    def generate_enhanced_description(
+        self, repo: Dict, readme: Optional[str] = None
+    ) -> str:
         """
         Generate an enhanced description using repository metadata
 
@@ -196,7 +221,11 @@ class StarredRepoScanner:
             readme_lower = readme.lower()
 
             # Check for key indicators
-            if "cli" in readme_lower or "command-line" in readme_lower or "command line" in readme_lower:
+            if (
+                "cli" in readme_lower
+                or "command-line" in readme_lower
+                or "command line" in readme_lower
+            ):
                 enhanced_parts.append("Command-line tool")
 
             if "framework" in readme_lower:
@@ -204,12 +233,24 @@ class StarredRepoScanner:
             elif "library" in readme_lower:
                 enhanced_parts.append("Library")
 
-            if "api" in readme_lower and ("rest" in readme_lower or "graphql" in readme_lower):
+            if "api" in readme_lower and (
+                "rest" in readme_lower or "graphql" in readme_lower
+            ):
                 enhanced_parts.append("Provides API functionality")
 
-        return " | ".join(enhanced_parts) if enhanced_parts else "No description available"
+        return (
+            " | ".join(enhanced_parts)
+            if enhanced_parts
+            else "No description available"
+        )
 
-    def extract_metadata(self, repo: Dict, include_readme: bool = False, include_languages: bool = False, enhance_description: bool = False) -> Dict:
+    def extract_metadata(
+        self,
+        repo: Dict,
+        include_readme: bool = False,
+        include_languages: bool = False,
+        enhance_description: bool = False,
+    ) -> Dict:
         """
         Extract relevant metadata from repository data
 
@@ -238,7 +279,9 @@ class StarredRepoScanner:
             "updated_at": repo["updated_at"],
             "pushed_at": repo.get("pushed_at"),
             "homepage": repo.get("homepage"),
-            "license": repo.get("license", {}).get("name") if repo.get("license") else None,
+            "license": repo.get("license", {}).get("name")
+            if repo.get("license")
+            else None,
             "archived": repo.get("archived", False),
             "fork": repo.get("fork", False),
             "default_branch": repo.get("default_branch", "main"),
@@ -249,14 +292,18 @@ class StarredRepoScanner:
 
         readme_content = None
         if include_readme:
-            readme_content = self.fetch_readme(repo["owner"]["login"], repo["name"])
+            readme_content = self.fetch_readme(
+                repo["owner"]["login"], repo["name"]
+            )
             if readme_content:
                 # Truncate to first 2000 characters to keep manageable for AI
                 metadata["readme_preview"] = readme_content[:2000]
 
         # Fetch language breakdown
         if include_languages:
-            languages = self.fetch_languages(repo["owner"]["login"], repo["name"])
+            languages = self.fetch_languages(
+                repo["owner"]["login"], repo["name"]
+            )
             if languages:
                 # Calculate percentages
                 total_bytes = sum(languages.values())
@@ -268,7 +315,9 @@ class StarredRepoScanner:
 
         # Generate enhanced description
         if enhance_description:
-            metadata["enhanced_description"] = self.generate_enhanced_description(repo, readme_content)
+            metadata["enhanced_description"] = (
+                self.generate_enhanced_description(repo, readme_content)
+            )
 
         return metadata
 
@@ -280,7 +329,7 @@ class StarredRepoScanner:
         include_readme: bool = False,
         include_languages: bool = False,
         enhance_description: bool = False,
-        limit: Optional[int] = None
+        limit: Optional[int] = None,
     ) -> Dict:
         """
         Scan starred repositories and generate output
@@ -298,7 +347,9 @@ class StarredRepoScanner:
             Dictionary with scan results
         """
         # Fetch repositories
-        repos = self.fetch_starred_repos(per_page=per_page, max_pages=max_pages)
+        repos = self.fetch_starred_repos(
+            per_page=per_page, max_pages=max_pages
+        )
 
         # Apply limit if specified
         if limit:
@@ -310,13 +361,16 @@ class StarredRepoScanner:
 
         for i, repo in enumerate(repos, 1):
             if i % 10 == 0:
-                print(f"Processed {i}/{len(repos)} repositories...", file=sys.stderr)
+                print(
+                    f"Processed {i}/{len(repos)} repositories...",
+                    file=sys.stderr,
+                )
 
             metadata = self.extract_metadata(
                 repo,
                 include_readme=include_readme,
                 include_languages=include_languages,
-                enhance_description=enhance_description
+                enhance_description=enhance_description,
             )
             repositories.append(metadata)
 
@@ -325,7 +379,7 @@ class StarredRepoScanner:
             "scan_date": datetime.utcnow().isoformat() + "Z",
             "total_repositories": len(repositories),
             "username": self.username or "authenticated_user",
-            "repositories": repositories
+            "repositories": repositories,
         }
 
         # Save to file if specified
@@ -358,51 +412,53 @@ Examples:
 
   # Include README previews (slower)
   python scan_starred_repos.py --include-readme --limit 10
-        """
+        """,
     )
 
     parser.add_argument(
-        "--output", "-o",
-        help="Output JSON file path (default: print to stdout)"
+        "--output",
+        "-o",
+        help="Output JSON file path (default: print to stdout)",
     )
     parser.add_argument(
-        "--username", "-u",
-        help="GitHub username to scan (defaults to authenticated user)"
+        "--username",
+        "-u",
+        help="GitHub username to scan (defaults to authenticated user)",
     )
     parser.add_argument(
-        "--token", "-t",
-        help="GitHub personal access token (or set GITHUB_TOKEN env var)"
+        "--token",
+        "-t",
+        help="GitHub personal access token (or set GITHUB_TOKEN env var)",
     )
     parser.add_argument(
         "--per-page",
         type=int,
         default=100,
-        help="Results per page (max 100, default: 100)"
+        help="Results per page (max 100, default: 100)",
     )
     parser.add_argument(
-        "--max-pages",
-        type=int,
-        help="Maximum pages to fetch (default: all)"
+        "--max-pages", type=int, help="Maximum pages to fetch (default: all)"
     )
     parser.add_argument(
-        "--limit", "-l",
+        "--limit",
+        "-l",
         type=int,
-        help="Maximum number of repositories to process"
+        help="Maximum number of repositories to process",
     )
     parser.add_argument(
         "--include-readme",
         action="store_true",
-        help="Fetch and include README previews (slower)"
+        help="Fetch and include README previews (slower)",
     )
     parser.add_argument(
         "--include-languages",
         action="store_true",
-        help="Fetch language breakdown for each repository"
+        help="Fetch language breakdown for each repository",
     )
     parser.add_argument(
         "--enhance-description",
         action="store_true",
-        help="Generate enhanced descriptions using metadata analysis"
+        help="Generate enhanced descriptions using metadata analysis",
     )
 
     args = parser.parse_args()
@@ -418,7 +474,7 @@ Examples:
         include_readme=args.include_readme,
         include_languages=args.include_languages,
         enhance_description=args.enhance_description,
-        limit=args.limit
+        limit=args.limit,
     )
 
     # Print to stdout if no output file specified
