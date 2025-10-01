@@ -9,6 +9,7 @@ A comprehensive, organized repository of AI-related tools, prompts, instructions
 - **Comprehensive Templates**: Standardized formats for prompts, instructions, modes, and thoughts
 - **Search & Discovery**: Well-structured metadata and navigation for finding content
 - **Modular Design**: Easy to extend and customize for specific needs
+- **Automation Tools**: Scripts for AI-powered workflows like starred repository analysis
 
 ## 📁 Repository Structure
 
@@ -33,6 +34,10 @@ ai-tools/
 │   ├── guides/       # Detailed tutorials
 │   ├── references/   # Quick reference materials
 │   └── examples/     # Sample implementations
+├── scripts/         # Automation scripts for AI workflows
+│   └── scan_starred_repos.py  # GitHub starred repository scanner
+├── data/            # Output from automation scripts (git-ignored)
+│   └── example-starred-repos-analysis.md  # Example workflow output
 └── thoughts/        # Personal insights and experiments
     ├── reflections/  # Learning insights and observations
     ├── experiments/  # Testing results and findings
@@ -68,6 +73,38 @@ Personal reflections and experiments including:
 - **Experimental results and findings**
 - **Future ideas and project plans**
 - **Tool evaluation and comparisons**
+
+## 🤖 Automation Tools
+
+### Starred Repository Scanner
+Automatically scan and analyze your GitHub starred repositories using AI:
+
+**Features:**
+- Fetch all starred repositories via GitHub API
+- Extract comprehensive metadata (language, topics, stars, etc.)
+- Generate AI-powered descriptions and use cases
+- Organize repositories by category and keywords
+- Export structured data for easy searching
+
+**Quick Start:**
+```bash
+# Install dependencies
+pip install requests
+
+# Scan your starred repos
+export GITHUB_TOKEN="your_token"
+python scripts/scan_starred_repos.py --output data/starred-repos.json
+
+# Analyze with AI using the Repository Analyzer prompt
+# See instructions/starred-repository-scanner.md for details
+```
+
+**Learn More:**
+- [Getting Started Guide](docs/guides/starred-repository-scanner.md) - 5-minute quick start
+- [Repository Analyzer Prompt](_prompts/repository-analyzer.md) - AI prompt for analysis
+- [Full Instructions](_instructions/starred-repository-scanner.md) - Complete setup guide
+- [Example Analysis](data/example-starred-repos-analysis.md) - Workflow demonstration
+- [Implementation Notes](_thoughts/starred-repository-scanner-implementation.md) - Design decisions
 
 ## 🌐 GitHub Pages Site
 
