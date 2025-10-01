@@ -765,7 +765,7 @@ def main():
     )
     parser.add_argument(
         "--starred-repos",
-        default="repos/starred-repos.json",
+        default="results/starred_repos_authenticated_user_latest.json",
         help="Path to starred repositories JSON file",
     )
     parser.add_argument(
@@ -776,7 +776,7 @@ def main():
     parser.add_argument(
         "--output",
         "-o",
-        help="Output file for report (default: stdout)",
+        help="Output file for report (default: auto-generated in results/)",
     )
     parser.add_argument(
         "--format",
@@ -813,13 +813,29 @@ def main():
     # Generate report
     report = recommender.generate_report(recommendations, args.format)
 
-    # Output
-    if args.output:
-        with open(args.output, "w", encoding="utf-8") as f:
-            f.write(report)
-        print(f"\nReport saved to {args.output}")
-    else:
-        print("\n" + report)
+    # Generate default output filename if not specified
+    output_file = args.output
+    if not output_file:
+        from datetime import datetime, timezone
+
+        timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        ext = "md" if args.format == "markdown" else "txt"
+        output_file = f"results/recommendations_{timestamp}.{ext}"
+
+    # Save output
+    import os
+
+    output_dir = os.path.dirname(output_file)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(report)
+    print(f"\nReport saved to {output_file}")
+
+    # Also print to stdout for immediate viewing
+    print("\n" + "=" * 50)
+    print(report[:1000] + "..." if len(report) > 1000 else report)
 
 
 if __name__ == "__main__":

@@ -340,6 +340,7 @@ class StarredRepoScanner:
 
         Args:
             output_file: Path to save JSON output
+                        (default: auto-generated in results/)
             per_page: Results per page for API calls
             max_pages: Maximum pages to fetch
             include_readme: Whether to fetch README previews
@@ -379,21 +380,30 @@ class StarredRepoScanner:
             repositories.append(metadata)
 
         # Create output structure
+        from datetime import timezone
+
         output = {
-            "scan_date": datetime.utcnow().isoformat() + "Z",
+            "scan_date": datetime.now(timezone.utc).isoformat() + "Z",
             "total_repositories": len(repositories),
             "username": self.username or "authenticated_user",
             "repositories": repositories,
         }
 
-        # Save to file if specified
-        if output_file:
-            output_dir = os.path.dirname(output_file)
-            if output_dir:
-                os.makedirs(output_dir, exist_ok=True)
-            with open(output_file, "w", encoding="utf-8") as f:
-                json.dump(output, f, indent=2, ensure_ascii=False)
-            print(f"Results saved to {output_file}", file=sys.stderr)
+        # Generate default output filename if not specified
+        if not output_file:
+            from datetime import timezone
+
+            timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+            username = self.username or "authenticated_user"
+            output_file = f"results/starred_repos_{username}_{timestamp}.json"
+
+        # Save to file
+        output_dir = os.path.dirname(output_file)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(output, f, indent=2, ensure_ascii=False)
+        print(f"Results saved to {output_file}", file=sys.stderr)
 
         return output
 
