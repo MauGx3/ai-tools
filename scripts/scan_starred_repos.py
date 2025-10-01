@@ -11,12 +11,16 @@ Usage:
 """
 
 import argparse
+from dotenv import load_dotenv
 import json
 import os
 import sys
 from datetime import datetime
 from typing import Dict, List, Optional
 from urllib.parse import urljoin
+
+# Load environment variables from .env file in the project root
+load_dotenv()
 
 try:
     import requests

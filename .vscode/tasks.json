@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "install python-dotenv",
+			"type": "shell",
+			"command": "pip",
+			"args": [
+				"install",
+				"python-dotenv"
+			],
+			"group": "build"
+		}
+	]
+}
