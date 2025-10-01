@@ -416,6 +416,13 @@ Examples:
 
   # Include README previews (slower)
   python scan_starred_repos.py --include-readme --limit 10
+
+  # Get AI-powered recommendations for current project
+  python scan_starred_repos.py --recommend
+
+  # Get recommendations with custom parameters
+  python scan_starred_repos.py --recommend --project-path /path/to/project \\
+      --recommend-output recommendations.md
         """,
     )
 
@@ -464,8 +471,85 @@ Examples:
         action="store_true",
         help="Generate enhanced descriptions using metadata analysis",
     )
+    parser.add_argument(
+        "--recommend",
+        action="store_true",
+        help="Generate AI-powered repository recommendations",
+    )
+    parser.add_argument(
+        "--project-path",
+        default=".",
+        help="Path to project for recommendation analysis (default: current)",
+    )
+    parser.add_argument(
+        "--recommend-output",
+        help="Output file for recommendations (default: stdout)",
+    )
+    parser.add_argument(
+        "--recommend-format",
+        choices=["markdown", "text"],
+        default="markdown",
+        help="Format for recommendations report",
+    )
+    parser.add_argument(
+        "--recommend-top-n",
+        type=int,
+        default=10,
+        help="Number of recommendations per category (default: 10)",
+    )
+    parser.add_argument(
+        "--recommend-min-score",
+        type=float,
+        default=30.0,
+        help="Minimum recommendation score 0-100 (default: 30.0)",
+    )
 
     args = parser.parse_args()
+
+    # Handle recommendation mode
+    if args.recommend:
+        # Import recommender module
+        try:
+            from repo_recommender import RepositoryRecommender
+        except ImportError:
+            print(
+                "Error: repo_recommender module not found. "
+                "Make sure repo_recommender.py is in the same directory."
+            )
+            sys.exit(1)
+
+        # Determine starred repos file
+        starred_file = args.output or "repos/starred-repos.json"
+        if not os.path.exists(starred_file):
+            print(
+                f"Error: Starred repos file not found: {starred_file}\n"
+                "Run without --recommend first to generate the data file."
+            )
+            sys.exit(1)
+
+        # Create recommender and generate recommendations
+        recommender = RepositoryRecommender()
+        recommendations = recommender.recommend(
+            starred_repos_file=starred_file,
+            project_path=args.project_path,
+            top_n=args.recommend_top_n,
+            min_score=args.recommend_min_score,
+        )
+
+        # Generate report
+        report = recommender.generate_report(
+            recommendations, args.recommend_format
+        )
+
+        # Output report
+        if args.recommend_output:
+            with open(args.recommend_output, "w", encoding="utf-8") as f:
+                f.write(report)
+            print(f"\nRecommendations saved to {args.recommend_output}")
+        else:
+            print("\n" + report)
+
+        return
 
     # Create scanner
     scanner = StarredRepoScanner(token=args.token, username=args.username)
