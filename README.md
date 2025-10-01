@@ -145,6 +145,22 @@ bundle exec jekyll serve
 4. **Follow the content structure** established in existing examples
 5. **Test locally** before committing changes
 
+### Commit Convention
+
+This project follows [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
+- **feat**: New features
+- **fix**: Bug fixes
+- **docs**: Documentation changes
+- **style**: Code style changes (formatting, etc.)
+- **refactor**: Code refactoring
+- **test**: Adding or updating tests
+- **chore**: Maintenance tasks
+
+Example: `feat(prompts): add code review prompt`
+
+The changelog is automatically generated from these conventional commits.
+
 ### Content Standards
 
 - **Descriptive titles** that clearly indicate purpose
@@ -161,7 +177,11 @@ For detailed documentation, including:
 - Best practices and workflows
 - Technical implementation details
 
-Visit the [Documentation section](docs.md) or the live site.
+Visit the [Documentation section](docs/) or the live site.
+
+## 📋 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a history of changes to this project.
 
 ## 📄 License
 

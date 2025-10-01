@@ -1,0 +1,56 @@
+name: 'Copilot Setup Steps'
+description: 'Reusable setup steps for GitHub Copilot workflows with Jekyll and GitHub Pages'
+author: 'MauGx3'
+
+inputs:
+  ruby-version:
+    description: 'Ruby version to use'
+    required: false
+    default: '3.1'
+  bundler-cache:
+    description: 'Enable bundler caching'
+    required: false
+    default: 'true'
+  cache-version:
+    description: 'Cache version to use (increment to invalidate cache)'
+    required: false
+    default: '0'
+
+outputs:
+  pages-enabled:
+    description: 'Whether GitHub Pages is enabled for the repository'
+    value: ${{ steps.pages.outcome == 'success' }}
+  base-path:
+    description: 'Base path for the site (if Pages is enabled)'
+    value: ${{ steps.pages.outputs.base_path }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ inputs.ruby-version }}
+        bundler-cache: ${{ inputs.bundler-cache }}
+        cache-version: ${{ inputs.cache-version }}
+
+    - name: Setup Pages
+      id: pages
+      uses: actions/configure-pages@v5
+      continue-on-error: true
+    - name: Check Pages Status
+      if: steps.pages.outcome == 'failure'
+      shell: bash
+      run: |
+        echo "⚠️  GitHub Pages is not enabled for this repository."
+        echo "📖 To enable GitHub Pages:"
+        echo "   1. Go to repository Settings"
+        echo "   2. Navigate to 'Pages' in the sidebar"
+        echo "   3. Under 'Source', select 'GitHub Actions'"
+        echo "   4. Save the settings"
+        echo "   5. Re-run this workflow"
+        echo ""
+        echo "💡 This workflow will build the site but skip deployment until Pages is enabled."
