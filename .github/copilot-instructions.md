@@ -1,4 +1,14 @@
+---
+applyTo: "**"
+---
+
 # GitHub Copilot Instructions
+
+## Specialized Instructions
+For any "instructions file" that is mentioned in the text below, you must seek the correct instructions file in the `.github/instructions/` folder. These files contain detailed instructions for specific tasks, libraries, or frameworks. The following instructions are available for this repository:
+- `pytest.instructions.md`: Instructions for writing tests using pytest.
+- `conventional-commits.instructions.md`: Instructions for writing commit messages following the Conventional Commits specification.
+- `python.instructions.md`: Instructions for writing Python code.
 
 ## General Instructions
 
