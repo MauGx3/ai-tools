@@ -22,24 +22,36 @@ from typing import Dict, List, Optional
 try:
     import numpy as np
 except ImportError:
-    print("Warning: numpy not installed. Install with: pip install numpy")
+    import sys
+
+    print(
+        "Warning: numpy not installed.\n"
+        f"Python executable: {sys.executable}\n"
+        f"Install with: {sys.executable} -m pip install numpy"
+    )
     np = None
 
 try:
     from sentence_transformers import SentenceTransformer
 except ImportError:
+    import sys
+
     print(
-        "Warning: sentence-transformers not installed. "
-        "Install with: pip install sentence-transformers"
+        "Warning: sentence-transformers not installed.\n"
+        f"Python executable: {sys.executable}\n"
+        f"Install with: {sys.executable} -m pip install sentence-transformers"
     )
     SentenceTransformer = None
 
 try:
     from sklearn.metrics.pairwise import cosine_similarity
 except ImportError:
+    import sys
+
     print(
-        "Warning: scikit-learn not installed. "
-        "Install with: pip install scikit-learn"
+        "Warning: scikit-learn not installed.\n"
+        f"Python executable: {sys.executable}\n"
+        f"Install with: {sys.executable} -m pip install scikit-learn"
     )
     cosine_similarity = None
 
