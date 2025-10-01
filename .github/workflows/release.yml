@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Generate changelog
-        uses: orhun/git-cliff-action@v3
+        uses: orhun/git-cliff-action@v4
         id: git-cliff
         with:
           config: .cliff.toml
@@ -29,7 +29,7 @@ jobs:
           OUTPUT: CHANGELOG_LATEST.md
 
       - name: Update CHANGELOG.md
-        uses: orhun/git-cliff-action@v3
+        uses: orhun/git-cliff-action@v4
         with:
           config: .cliff.toml
           args: --verbose
