@@ -1,14 +1,3 @@
----
-title: "Advanced Coding Assistant"
-mode_type: "development"
-ai_model: "GPT-4 or Claude 3.5 Sonnet"
-context_length: "8000+ tokens recommended"
-best_for: "Complex coding tasks, architecture decisions, debugging"
-description: "Optimized mode for advanced software development with comprehensive context and expert-level assistance"
----
-
-This mode configures the AI to act as a senior software engineer with deep expertise across multiple programming languages, frameworks, and architectural patterns.
-
 ## Mode Configuration
 
 ### System Prompt
@@ -57,10 +46,10 @@ Provide thoughtful, comprehensive responses with examples when helpful.
 
 ### Architecture Discussion
 ```
-User: "I'm designing a microservices architecture for an e-commerce platform. 
+User: "I'm designing a microservices architecture for an e-commerce platform.
 What are the key considerations for service boundaries and data consistency?"
 
-AI: [Detailed response about domain-driven design, eventual consistency, 
+AI: [Detailed response about domain-driven design, eventual consistency,
 saga patterns, and specific service recommendations]
 ```
 
@@ -69,16 +58,16 @@ saga patterns, and specific service recommendations]
 User: "Please review this Python function for performance and best practices:
 [code snippet]"
 
-AI: [Comprehensive review covering time complexity, memory usage, 
+AI: [Comprehensive review covering time complexity, memory usage,
 error handling, type hints, and suggested improvements]
 ```
 
 ### Debugging
 ```
-User: "I'm getting intermittent timeouts in my Node.js application. 
+User: "I'm getting intermittent timeouts in my Node.js application.
 Here's the relevant code and error logs: [details]"
 
-AI: [Systematic debugging approach, potential causes, 
+AI: [Systematic debugging approach, potential causes,
 monitoring suggestions, and specific fixes]
 ```
 
