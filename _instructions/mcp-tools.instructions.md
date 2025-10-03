@@ -1,74 +1,17 @@
 ---
-title: "MCP Tools Instructions"
-type: "usage"
-difficulty: "intermediate"
-time_required: "20 minutes"
-prerequisites: "Basic understanding of AI tools and API interactions"
-description: "Comprehensive guide for leveraging Model Context Protocol (MCP) tools effectively across multiple domains"
-tags: ["MCP", "Model Context Protocol", "tools", "integration", "best practices"]
-categories: ["reference", "automation"]
+applyTo: "**
 ---
-
-This guide provides comprehensive instructions for understanding and leveraging Model Context Protocol (MCP) tools to enhance AI workflows across various domains.
-
-## What is MCP?
-
-Model Context Protocol (MCP) is a standardized protocol that enables AI models to interact with external tools, services, and data sources in a consistent and predictable way. MCP servers expose tools that AI agents can discover and use to perform specific tasks, from fetching data to executing operations.
-
-### Key Concepts
-
-**MCP Servers**: Applications that expose tools through the MCP protocol
-- Each server focuses on a specific domain (e.g., GitHub, file systems, databases)
-- Servers define available tools with parameters and expected outputs
-- Multiple servers can be used simultaneously
-
-**MCP Tools**: Individual functions exposed by MCP servers
-- Accept structured parameters (typically JSON)
-- Return structured responses
-- Can be chained together for complex workflows
-
-**MCP Clients**: Applications (like AI assistants) that consume MCP tools
-- Discover available tools from connected servers
-- Invoke tools with appropriate parameters
-- Process tool responses to complete user requests
-
-## Available MCP Tool Categories
-
+# Available MCP Tool Categories
+<!-- TODO -->
 ### Code Repository Tools
 For interacting with version control systems and code hosting platforms.
-
+<!-- list MCP tools for code repositories -->
 **GitHub MCP Server** - See [`github-mcp-server-tools.md`](github-mcp-server-tools.md) for detailed documentation
 - Pull request analysis and review
 - Repository file access
 - Commit history and diffs
 - Issue and discussion management
 - Workflow and CI/CD integration
-
-### File System Tools
-For reading, writing, and managing local files.
-- Directory navigation
-- File content retrieval
-- File search and filtering
-- File metadata inspection
-
-### Web Tools
-For fetching and processing web content.
-- Web scraping and content extraction
-- API integration
-- Data retrieval from online sources
-
-### Database Tools
-For querying and managing structured data.
-- SQL query execution
-- Database schema inspection
-- Data transformation and analysis
-
-### AI/ML Tools
-For specialized AI operations.
-- Image processing and analysis
-- Document understanding
-- Data enrichment
-- Model-specific operations
 
 ## General Usage Patterns
 
@@ -81,17 +24,6 @@ Before using MCP tools, understand what's available:
 
 ### 2. Single Tool Usage
 For simple operations, invoke a single tool:
-
-```json
-{
-  "server": "server-name",
-  "tool": "tool-name",
-  "parameters": {
-    "param1": "value1",
-    "param2": "value2"
-  }
-}
-```
 
 **Example** - Fetching file contents:
 ```json
@@ -115,7 +47,7 @@ For complex workflows, chain multiple tools:
 3. Use processing tools to analyze the data
 4. Use action tools to implement changes
 
-**Example Workflow** - Code Review:
+**Example Workflow with GitHub MCP Server** - Code Review:
 ```
 1. get_pull_request() → Get PR metadata
 2. get_pull_request_files() → List changed files
@@ -270,13 +202,7 @@ Combine tools from different domains:
 
 For detailed documentation on specific MCP tool servers:
 
-- **GitHub Tools**: See [`github-mcp-server-tools.md`](github-mcp-server-tools.md)
-  - Pull request management
-  - Code review automation
-  - Repository operations
-  - Workflow integration
-
-- **Additional MCP Servers**: 
+- **Additional MCP Servers**:
   - Check the [MCP Server Registry](https://github.com/modelcontextprotocol/servers) for community-maintained servers
   - Review server README files for tool documentation
   - Consult API specifications for parameter details
@@ -351,23 +277,6 @@ When using MCP tools:
 - **Use least privilege** - only grant necessary permissions
 - **Rotate credentials** regularly
 - **Monitor for suspicious patterns** in tool usage
-
-## Resources
-
-### Official Documentation
-- [Model Context Protocol Specification](https://modelcontextprotocol.io/)
-- [MCP Server Registry](https://github.com/modelcontextprotocol/servers)
-- [MCP SDK Documentation](https://github.com/modelcontextprotocol/sdk)
-
-### Community Resources
-- MCP Server Examples: Browse community implementations
-- Best Practices Guides: Learn from experienced developers
-- Integration Patterns: Common workflows and solutions
-
-### Related Instructions
-- [GitHub MCP Server Tools](github-mcp-server-tools.md) - Detailed GitHub tool reference
-- [Copilot Code Review Instructions](copilot-instructions.md) - AI-assisted review workflows
-- [Prompt Engineering Best Practices](prompt-engineering-best-practices.md) - Effective AI interactions
 
 ## Summary
 
