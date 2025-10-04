@@ -131,7 +131,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm ci
+          # Use npm ci when a lockfile exists for reproducible installs, otherwise fall back to npm install
+          if [ -f package-lock.json ]; then
+            echo "Found package-lock.json, running npm ci"
+            npm ci
+          else
+            echo "No package-lock.json found, running npm install"
+            npm install
+          fi
 
       - name: Install Playwright browsers
         run: |
