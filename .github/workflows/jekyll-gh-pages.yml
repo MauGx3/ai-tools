@@ -43,6 +43,12 @@ jobs:
         uses: actions/configure-pages@v5
         continue-on-error: true
 
+      - name: Debug Pages outputs
+        if: always()
+        run: |
+          echo "pages.outcome=${{ steps.pages.outcome }}"
+          echo "pages.base_path=${{ steps.pages.outputs.base_path }}"
+
       - name: Check Pages Status
         if: steps.pages.outcome == 'failure'
         run: |
@@ -58,22 +64,25 @@ jobs:
 
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
+        # Save full build log to jekyll_build.log for debugging and upload as artifact later
         run: |
+          set -o pipefail
           if [[ "${{ steps.pages.outcome }}" == "success" ]]; then
-            bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+            bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" 2>&1 | tee jekyll_build.log
+            echo "EXIT_CODE=${PIPESTATUS[0]}" >> jekyll_build.log || true
           else
-            bundle exec jekyll build
+            bundle exec jekyll build 2>&1 | tee jekyll_build.log
+            echo "EXIT_CODE=${PIPESTATUS[0]}" >> jekyll_build.log || true
           fi
         env:
           JEKYLL_ENV: production
 
-      - name: Upload artifact
-        # Only upload if Pages is properly configured
+      - name: Upload site artifact (Pages)
+        # Upload Pages artifact when Pages is configured
         if: steps.pages.outcome == 'success'
-        # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3
 
-      - name: Upload artifact for preview
+      - name: Upload site artifact for preview
         # If Pages is not configured, still upload as regular artifact for review
         if: steps.pages.outcome == 'failure'
         uses: actions/upload-artifact@v4
@@ -81,6 +90,14 @@ jobs:
           name: github-pages
           path: _site/
           retention-days: 1
+
+      - name: Upload Jekyll build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jekyll-build-log
+          path: jekyll_build.log
+          retention-days: 7
 
   # Deployment job
   deploy:
@@ -91,7 +108,55 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  test-pages:
+    # Run tests after successful deploy
+    if: needs.deploy.outputs.page_url != ''
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+
+      - name: Install Playwright browsers
+        run: |
+          npx playwright install --with-deps
+
+      - name: Wait for site to be reachable
+        env:
+          PAGE_URL: ${{ needs.deploy.outputs.page_url }}
+        run: |
+          set -e
+          echo "Waiting for $PAGE_URL ..."
+          for i in {1..30}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" "$PAGE_URL" || echo "000")
+            if [ "$status" = "200" ]; then
+              echo "Site is up"
+              exit 0
+            fi
+            echo "Attempt $i: HTTP $status - sleeping 5s"
+            sleep 5
+          done
+          echo "Site did not become reachable in time"
+          exit 1
+
+      - name: Run Playwright tests
+        env:
+          PAGE_URL: ${{ needs.deploy.outputs.page_url }}
+        run: |
+          npm test --silent
