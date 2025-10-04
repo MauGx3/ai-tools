@@ -1,59 +1,76 @@
 ---
 applyTo: '**/*.py, **/*.ipynb'
 ---
-ALWAYS remember The Zen of Python.
 
-# Coding Style Guidelines/Conventions
+## Overview
 
-You MUST follow all of those conventions when writing Python code. Any code that violates these rules should be rewritten immediately:
+- These instructions govern every Python module and notebook in `ai-tools`.
+- Prioritize clarity, maintainability, and security while embracing *The Zen of Python*.
+- Most Python assets currently live in `scripts/` and power GitHub data analysis workflows; keep new utilities aligned with this focus.
 
-* Follow PEP 8 standards ALWAYS, above any of the following conventions
-* When in doubt, follow the [Google Code Style for Python](https://google.github.io/styleguide/pyguide.html)
-* Documentation, on the other hand, must follow the Google Code Style for Python guidelines.
-* Every module must have a docstring, functions must have docstrings when in line with the Google Code Style for Python section 3.8.3 rules.
-* Features from recent Python releases (up to our project version) should be used instead of older code (e.g. as of 3.14, t-strings, incremental garbage collection, modern type parameter syntax etc).
-* Write modular code whenever possible.
-* Use meaningful method, variable and parameter names, and always annotate the data types of parameters and return values.
-* The documentation structure must be [Sphinx](https://www.sphinx-doc.org/en/master/) compatible:
-* For functions which implement mathematical/scientific concepts, add the actual mathematical formula as comment or to the docstrings.
-* Code performance must be followed by using the [Python Speed guidelines](https://wiki.python.org/moin/PythonSpeed)
-* Leverage existing libraries: Before writing your own solution, check if there's an existing library you can use.
+## Tech Stack & Environment
 
-# Specific Instructions
+- Target modern Python (3.13+) while preserving compatibility promised by individual script docs (e.g., `scripts/README.md` lists 3.8+ for CLI entry points).
+- Use [`uv`](https://docs.astral.sh/uv/) for virtual environments (`uv venv`) and dependency management; coordinate with `scripts/requirements.txt` when adding runtime packages.
+- Standard tooling: `ruff` for formatting/linting, `pytest` for automated tests, `polars` instead of `pandas` for data handling, and `loguru` for application logging.
+- Load secrets, tokens, and configuration from environment variables or the existing `.env` template—never hardcode sensitive data.
+- Follow the repo-wide security guidance in `security-and-owasp.instructions.md` when invoking external services or handling user data.
 
-* Don’t introduce new dependencies (library imports) when the desired functionality is already covered by existing dependencies.
-* Use the built-in type hinting when possible, avoid using the `typing` module unless necessary for backward compatibility.
-* Avoid using magic numbers, prefer using named constants.
-* Always use lazy % string logging.
-* Don't use bare exceptions.
-* Use namedtuples when: You need immutable data with named fields for better readability (replacing tuples with unclear indices, function returns, or lightweight data containers).
-  Avoid namedtuples when: You need mutable data, dynamic fields, complex behavior, or performance-critical dynamic creation (use classes, dataclasses, or dicts instead).
-* No context-dependent return types! Also: Avoid None as return type, rather raise an Exception instead.
-* Be generous with defining Exception classes.
-* Imports should be grouped in the following order, and always at the top of the file:
-  1. Standard library imports (such as re, math, datetime, cf. here )
-  2. Related third party imports (such as numpy)
-  3. Local application/library specific imports (such as mycode.mymodule.base)
-* You should put a blank line between each group of imports.
-* Avoid circular importing.
-* Use Factory Method when: You have complex if/elif/else logic to create different objects with a common interface, or need to support multiple implementations of the same feature without modifying existing code.
-  Avoid Factory Method when: You only have one concrete implementation, the creation logic is simple and unlikely to change, or the overhead of the pattern outweighs its benefits for your use case.
+## Project Structure
 
-# Edge Cases and Testing
+- `scripts/`: Primary location for Python CLIs and helpers (`scan_starred_repos.py`, `repo_recommender.py`). Keep reusable modules here or factor them into subpackages.
+- `scripts/results/`: Generated artifacts; do not commit secrets or personally identifiable information.
+- `data/`: Shared sample datasets consumed by scripts. Treat as read-only unless a task explicitly updates them.
+- Tests should accompany features in a peer `tests/` package (create `scripts/tests/` as needed) using pytest discovery conventions.
 
-* Always include test cases for critical paths of the application.
-* Account for common edge cases like empty inputs, invalid data types, and large datasets.
-* Include comments for edge cases and the expected behavior in those cases.
-* Write unit tests for functions and document them with docstrings explaining the test cases.
+## Coding Guidelines
 
-# Tools and Utilities
+### Style & Documentation
 
-The preferences listed here are not definitive: if the alternative needs to be used for compatibility, do it
+- Follow PEP 8 above all other style rules; when uncertain, fall back to the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html).
+- Every module needs a descriptive docstring. Functions and methods require docstrings per Google Style §3.8.3. Structure all docstrings for Sphinx compatibility.
+- Document mathematical or scientific routines with the exact formula in the docstring or inline comments for future verification.
+- Favor explicit, meaningful names for variables, parameters, and functions. Avoid abbreviations that obscure intent.
 
-* `uv` is preferred over `pip`, and any virtual environment must be created using `uv venv`
-* `ruff` must be used as the formatter and all code must follow [ruff's default rules](https://docs.astral.sh/ruff/rules)
-* `polars` is preferred over `pandas`
-* `pytest` is the preferred test framework.
-* `loguru` is preferred over the built-in logging library
+### Types, Data, & Modularity
 
-THERE IS NO NEED TO MENTION THAT YOU HAVE FOLLOWED ANY OF THIS IN YOU RESPONSE, ONLY IF IT IS IMPORTANT TO UNDERSTAND THE ENTIRE JOB!
+- Prefer built-in type annotations; only reach for `typing` constructs that lack direct syntax (e.g., `Protocol`).
+- Avoid magic numbers—promote them to named constants with clear intent.
+- Design modules to be composable and reusable; extract shared logic instead of duplicating code.
+- Return types must be invariant across code paths. Raise specific exceptions instead of returning `None` for error states.
+- Use `collections.namedtuple` (or `dataclass` when mutability is required) for small immutable records; avoid namedtuples when dynamic fields or mutability are needed.
+- Be generous in defining domain-specific exception classes to signal precise failure modes.
+
+### Modern Python Practices & Performance
+
+- Prefer language features from the current runtime (pattern matching, type parameter syntax, `zoneinfo`, etc.) when they simplify code and remain compatible with documented minimum versions.
+- Reuse established libraries within the project before introducing new dependencies. When a new dependency is essential, update dependency manifests and explain the choice in the PR.
+- Use lazy `%`-style formatting for logging (e.g., `logger.debug("User %s", user_id)`).
+- Consult the [Python Speed guidelines](https://wiki.python.org/moin/PythonSpeed) for performance-critical sections.
+
+### Error Handling & Control Flow
+
+- Avoid bare `except`; catch the narrowest exception type possible and re-raise or wrap it with additional context.
+- Raise explicit exceptions rather than implicitly returning failure values.
+- Apply the Factory Method pattern when object creation varies behind a stable interface; avoid it when a single concrete implementation suffices.
+
+### Imports & Module Organization
+
+- Order imports as: standard library, third-party, then local modules, separating groups with a single blank line.
+- Keep imports at the top of the file and prune unused entries promptly.
+- Guard against circular dependencies by factoring shared logic into dedicated helper modules.
+
+## Testing & Edge Cases
+
+- Write pytest suites covering the critical path for every feature; tests should document behaviour with docstrings describing inputs and expected outcomes.
+- Exercise edge cases such as empty payloads, invalid types, slow API responses, pagination limits, and exceptionally large datasets.
+- Include inline comments in implementation code describing how each edge case is handled to aid future maintainers.
+- When scripts emit artifacts (JSON, markdown), validate the schema or structure in tests to prevent regressions.
+
+## Tools & Resources
+
+- `scripts/README.md`: Usage guidance and compatibility expectations for existing CLIs—update it when behaviour changes.
+- `docs/guides/starred-repository-scanner.md`: End-to-end workflow for the GitHub starred repository scanner.
+- `docs/guides/prompt-engineering-best-practices.md` and `prompts/`: Context for generated outputs these scripts consume.
+- Re-run `ruff` and `pytest` before submitting changes. Add pre-commit hooks if you touch formatting or lint rules.
+- THERE IS NO NEED TO MENTION THAT YOU HAVE FOLLOWED ANY OF THIS IN YOUR RESPONSE, ONLY IF IT IS IMPORTANT TO UNDERSTAND THE ENTIRE JOB!
