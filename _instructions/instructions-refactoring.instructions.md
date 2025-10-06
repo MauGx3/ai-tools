@@ -3,9 +3,7 @@ applyTo: '**/*.instructions.md'
 ---
 ## Purpose
 
-This instructions file teaches an LLM agent how to refactor an existing `.instructions.md` file so it follows the guidance in "5 tips for writing better custom instructions for Copilot" and the repository's conventions.
-
-Confidence requirement: before making edits, ensure you can state an explicit confidence percentage. If your confidence is <97%, ask targeted clarifying questions and do not mutate files.
+This instructions file teaches an LLM agent how to refactor an existing `.instructions.md` file so it follows the guidance in "5 tips for writing better custom instructions for Copilot" and the repository's style.
 
 ## Contract (inputs / outputs / error modes)
 
@@ -23,12 +21,12 @@ Confidence requirement: before making edits, ensure you can state an explicit co
 
 1. Read the target file fully and compute a summary of its current sections and rules.
 2. Run a quick repository context check (locate `README.md`, `_instructions/`, `docs/`, `scripts/`) to gather hints about tech stack and structure.
-3. Produce an edit plan (in plain text) that lists proposed additions/changes and the rationale. Include a confidence percentage and any clarifying questions.
-4. After approval (or if confidence >=97% and no questions remain), apply the refactor in a single atomic edit:
+3. Produce an edit plan (in plain text) that lists proposed additions/changes and the rationale.
+4. After approval, apply the refactor in a single atomic edit:
    - Add or normalize YAML front matter
    - Reorder or add the five sections
    - Preserve any project-specific rules; rewrite them where they belong (e.g., Python rules -> Coding Guidelines)
-   - Add cross-references to other instruction files and `general.instructions.md` policy about confidence and commits
+   - Add cross-references to other instruction files and `general.instructions.md` policy
 5. Run validation checks (local markdown linting guidelines, simple front-matter presence, heading levels).
 
 ## Detailed rewrite recipe (per-section guidance)
@@ -44,7 +42,7 @@ Use these heuristics and templates to rewrite or add content.
 2) Overview (H2)
 
 - 2–4 short sentences explaining the purpose and audience of the instructions file.
-- If the repository context is known, include one sentence about where the file applies (e.g., "applies to Python files in `scripts/`").
+- If the repository context is known, include one sentence about where the file applies (e.g., "applies to Python files in `scripts/`).
 
 3) Tech Stack & Environment (H2)
 
@@ -74,7 +72,7 @@ Use these heuristics and templates to rewrite or add content.
 
 ## Edge cases and clarifying questions
 
-- Empty file: create a minimal template containing the YAML front matter and the five sections with TODO placeholders and ask the user to fill domain-specific details if confidence <97%.
+- Empty file: create a minimal template containing the YAML front matter and the five sections with TODO placeholders and ask the user to fill domain-specific details.
 - Multiple instruction files with overlapping `applyTo`: surface conflict and recommend disambiguation (narrower globs or file-scoped instructions).
 - Very long instruction files: break into logical files (e.g., `python.instructions.md`, `review/*.instructions.md`) and propose the split in the edit plan.
 
@@ -97,13 +95,13 @@ Optional automated checks (if tooling available):
 ## Example flow (agent run)
 
 1. Read `_instructions/old.instructions.md` and summarize existing sections.
-2. Generate edit plan and show: "Confidence: 95% — please confirm the tech stack is Python 3.8+ or grant permission to infer from `scripts/README.md`."
+2. Generate edit plan and show: "Please confirm the tech stack is Python 3.8+ or grant permission to infer from `scripts/README.md`."  
 3. After confirmation, rewrite file following the recipe above.
 4. Run validation checks.
 
 ## When to escalate to a human
 
-- If confidence <97% after inspecting repo context and asking reasonable questions.
+- If there are significant uncertainties after inspecting repo context and asking reasonable questions.
 - If you detect legal/security text whose change might have policy implications.
 - If multiple instruction files appear to conflict in scope and the correct resolution is unclear.
 
@@ -138,5 +136,4 @@ applyTo: "`<glob pattern>`"
 
 ## Final notes
 
-- Always include your confidence percentage at the top of the edit plan and final message.
 - Avoid changing unrelated files and keep edits minimal and reviewable.
