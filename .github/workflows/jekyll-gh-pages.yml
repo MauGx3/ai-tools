@@ -80,7 +80,7 @@ jobs:
       - name: Upload site artifact (Pages)
         # Upload Pages artifact when Pages is configured
         if: steps.pages.outcome == 'success'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
 
       - name: Upload site artifact for preview
         # If Pages is not configured, still upload as regular artifact for review
