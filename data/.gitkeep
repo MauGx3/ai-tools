@@ -1,8 +1,0 @@
-# Data Directory
-
-This directory stores output from automation scripts, such as:
-- Starred repository scans
-- Analysis results
-- Generated reports
-
-Files in this directory are typically git-ignored to avoid committing large datasets.
