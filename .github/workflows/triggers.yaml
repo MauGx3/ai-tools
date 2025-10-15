@@ -1,5 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/irgolic/AutoPR/main/trigger_schema.json
 
+on:
+  workflow_dispatch:
+
 triggers:
   - label_substring: summarize
     on_issue: false
@@ -33,3 +36,11 @@ triggers:
         - .github
         - .autopr
         - tests
+
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notice triggers file
+        run: |
+          echo "This file contains AutoPR triggers; a no-op job was added so GitHub Actions validates the file."
