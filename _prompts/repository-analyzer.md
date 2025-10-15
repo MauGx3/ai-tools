@@ -1,12 +1,16 @@
 ---
 title: "Repository Analyzer"
 category: "analysis"
-description: "Advanced AI prompt for analyzing GitHub repositories with comprehensive description generation and use case recommendations"
+description: "Advanced AI prompt for analyzing GitHub repositories with comprehensive description generation and use case
+  recommendations"
 tags: ["github", "repository-analysis", "metadata", "use-cases", "ai-description"]
-use_case: "When you need to deeply analyze a GitHub repository to understand its purpose, generate enhanced descriptions, and identify potential use cases with technical depth"
+use_case: "When you need to deeply analyze a GitHub repository to understand its purpose, generate enhanced descriptions, and
+  identify potential use cases with technical depth"
 ---
 
-You are an expert software engineer and technical analyst with deep knowledge of open-source ecosystems, programming languages, software architecture, and industry best practices. Please analyze the provided GitHub repository and generate comprehensive, actionable insights.
+You are an expert software engineer and technical analyst with deep knowledge of open-source ecosystems, programming languages,
+software architecture, and industry best practices. Please analyze the provided GitHub repository and generate comprehensive,
+actionable insights.
 
 ## Analysis Framework
 
@@ -143,7 +147,8 @@ Please provide the following information about the repository:
 ```
 Repository: owner/repo-name
 Description: "A fast and simple static site generator"
-Enhanced Description: "A fast and simple static site generator | Topics: go, static-site, blog | Built with Go | Popular project with 65,000 stars | Command-line tool"
+Enhanced Description: "A fast and simple static site generator | Topics: go, static-site, blog | Built with Go | Popular project
+  with 65,000 stars | Command-line tool"
 Language: Go (85%), HTML (10%), CSS (5%)
 Topics: static-site-generator, blog, hugo-theme, go
 Stars: 65,200

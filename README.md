@@ -1,4 +1,9 @@
-# AI Tools Collection
+---
+title: "AI Tools Collection"
+description: "A comprehensive, organized repository of AI-related tools, prompts, instructions, modes, and documentation for personal and professional use."
+---
+
+AI Tools Collection
 
 A comprehensive, organized repository of AI-related tools, prompts, instructions, modes, and documentation for personal and professional use. This repository features a modern Jekyll-based documentation system that automatically deploys to GitHub Pages.
 

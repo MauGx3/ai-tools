@@ -6,7 +6,7 @@ description: "AI Tools Collection - A comprehensive collection of AI-related too
 permalink: /
 ---
 
-# AI Tools Collection
+AI Tools Collection
 
 Welcome to the AI Tools Collection! This repository contains a curated set of prompts, instructions, operational modes, and documentation for working effectively with AI assistants.
 

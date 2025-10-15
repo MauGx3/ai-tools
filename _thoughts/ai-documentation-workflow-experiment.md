@@ -7,7 +7,8 @@ related_tools: ["Jekyll", "GitHub Pages", "AI Code Review"]
 description: "Experiment with using AI to automate and improve documentation workflows"
 ---
 
-I've been experimenting with using AI tools to streamline the documentation process for technical projects. The goal is to reduce the manual effort while maintaining high-quality, comprehensive documentation.
+I've been experimenting with using AI tools to streamline the documentation process for technical projects. The goal is to reduce
+the manual effort while maintaining high-quality, comprehensive documentation.
 
 ## Background
 
