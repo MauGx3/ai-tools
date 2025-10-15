@@ -1,0 +1,55 @@
+# Copilot setup steps workflow - required by GitHub Copilot coding agent
+# This workflow will be executed by GitHub Actions before Copilot starts a session.
+# It must define a single job named `copilot-setup-steps` and may only customize
+# the following settings: runs-on, permissions, services, steps, snapshot and timeout-minutes.
+# See: https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment
+
+name: "Copilot Setup Steps"
+
+on:
+  workflow_dispatch: {}
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+permissions:
+  contents: read
+
+jobs:
+  # The job MUST be called `copilot-setup-steps` or it will not be picked up by Copilot.
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    # timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # overridden by Copilot to allow rollback if requested
+
+      - name: Set up Node.js (example)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install JS dependencies (example)
+        run: npm ci
+
+      # Optional: install additional tools your project needs (Python, Ruby, etc.)
+      # - name: Set up Ruby
+      #   uses: ruby/setup-ruby@v1
+      #   with:
+      #     ruby-version: '3.1'
+
+      # - name: Install Ruby gems
+      #   run: bundle install --jobs 4 --retry 3
+
+      # If you use Git LFS, make sure to enable it in checkout:
+      # - uses: actions/checkout@v5
+      #   with:
+      #     lfs: true
+
+    # You may add services, snapshot, or timeout-minutes if needed. Keep permissions minimal.

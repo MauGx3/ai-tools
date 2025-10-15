@@ -1,6 +1,10 @@
 # Copilot Setup Steps Action
 
-A reusable composite action that encapsulates common setup steps for GitHub Copilot workflows with Jekyll and GitHub Pages.
+This folder contains a reusable composite action that encapsulates common setup steps used by workflows and by the GitHub Copilot coding agent.
+
+Important: To customize the Copilot coding agent's ephemeral development environment you must also include a top-level workflow at `.github/workflows/copilot-setup-steps.yml` in your default branch. That workflow must declare a single job named `copilot-setup-steps`. See GitHub Docs:
+
+- https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment
 
 ## Features
 
@@ -30,11 +34,13 @@ A reusable composite action that encapsulates common setup steps for GitHub Copi
     cache-version: '1'
 ```
 
-## Inputs
+## Inputs (action)
+
+This composite action exposes inputs to control the included setup steps. These are convenience inputs for reuse in workflows; the Copilot-specific `copilot-setup-steps.yml` workflow may include its own steps instead.
 
 | Input | Description | Required | Default |
 |-------|-------------|----------|---------|
-| `ruby-version` | Ruby version to use | No | `3.1` |
+| `ruby-version` | Ruby version to use (for projects using Ruby/Jekyll) | No | `3.1` |
 | `bundler-cache` | Enable bundler caching | No | `true` |
 | `cache-version` | Cache version (increment to invalidate) | No | `0` |
 
@@ -45,36 +51,9 @@ A reusable composite action that encapsulates common setup steps for GitHub Copi
 | `pages-enabled` | Whether GitHub Pages is enabled (`true` or `false`) |
 | `base-path` | Base path for the site (if Pages is enabled) |
 
-## Example Workflow
+## Example Workflow (using action)
 
-```yaml
-name: Build Jekyll Site
-
-on:
-  push:
-    branches: [ "main" ]
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup Environment
-        id: setup
-        uses: ./.github/actions/copilot-setup-steps
-        with:
-          ruby-version: '3.1'
-
-      - name: Build with Jekyll
-        run: |
-          if [[ "${{ steps.setup.outputs.pages-enabled }}" == "true" ]]; then
-            bundle exec jekyll build --baseurl "${{ steps.setup.outputs.base-path }}"
-          else
-            bundle exec jekyll build
-          fi
-        env:
-          JEKYLL_ENV: production
-```
+See `example-workflow.yml` in this folder for a full example that uses this action within a normal multi-job GitHub Actions workflow. If your goal is to customize Copilot's environment for agent sessions, create and validate the required workflow file at `.github/workflows/copilot-setup-steps.yml` (this repository already contains one example).
 
 ## What It Does
 
@@ -90,27 +69,11 @@ jobs:
 - 🚀 **Easy Updates**: Change setup in one place, affects all workflows
 - 📝 **Clear Documentation**: Self-documenting action with helpful messages
 
-## Troubleshooting
+## Troubleshooting & notes
 
-### GitHub Pages Not Enabled
-
-If you see the warning about Pages not being enabled:
-
-1. Go to your repository Settings
-2. Navigate to "Pages" in the sidebar
-3. Under "Source", select "GitHub Actions"
-4. Save the settings
-5. Re-run the workflow
-
-### Cache Issues
-
-If you encounter caching issues, increment the `cache-version` input:
-
-```yaml
-- uses: ./.github/actions/copilot-setup-steps
-  with:
-    cache-version: '1'  # Increment this number
-```
+- If a Copilot setup step fails (non-zero exit) the remaining steps are skipped and Copilot will continue with the current environment state. Use the Actions UI to iterate and validate your setup steps manually.
+- Keep the `copilot-setup-steps.yml` workflow minimal: Copilot only respects `steps`, `permissions`, `runs-on`, `services`, `snapshot`, and `timeout-minutes` on the single job named `copilot-setup-steps`.
+- Use repository Environments (Settings → Environments → copilot) to add environment variables or secrets that Copilot will have access to. Prefer secrets for sensitive values.
 
 ## License
 

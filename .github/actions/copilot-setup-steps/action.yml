@@ -1,6 +1,9 @@
 name: 'Copilot Setup Steps'
 description: 'Reusable setup steps for GitHub Copilot workflows with Jekyll and GitHub Pages'
 author: 'MauGx3'
+branding:
+  icon: "tools"
+  color: "blue"
 
 inputs:
   ruby-version:
