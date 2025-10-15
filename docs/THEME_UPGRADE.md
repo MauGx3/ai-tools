@@ -11,12 +11,12 @@ The site now uses **Just the Docs** - a modern, responsive documentation theme w
 
 ### Features
 
-✨ **Modern Design**: Clean, professional appearance  
-🔍 **Built-in Search**: Full-text search across all pages  
-📱 **Responsive**: Mobile-first design that works on all devices  
-🎨 **Customizable**: Light/dark mode support  
-⚓ **Navigation**: Automatic heading anchors for easy linking  
-🔝 **Back to Top**: Quick navigation on long pages  
+✨ **Modern Design**: Clean, professional appearance
+🔍 **Built-in Search**: Full-text search across all pages
+📱 **Responsive**: Mobile-first design that works on all devices
+🎨 **Customizable**: Light/dark mode support
+⚓ **Navigation**: Automatic heading anchors for easy linking
+🔝 **Back to Top**: Quick navigation on long pages
 
 ### Theme Configuration
 
