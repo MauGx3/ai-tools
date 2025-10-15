@@ -1,9 +1,10 @@
-# Repository structure (reference)
 ---
 title: "Repository structure"
 type: "reference"
 layout: "default"
 ---
+
+## Repository structure (reference)
 
 Quick reference for the most important files and folders in this repository.
 

@@ -1,4 +1,9 @@
-# Getting Started with Starred Repository Scanner
+---
+layout: default
+title: Getting Started with Starred Repository Scanner
+---
+
+## Getting Started with Starred Repository Scanner
 
 A quick guide to scanning and analyzing your GitHub starred repositories with AI-powered insights.
 

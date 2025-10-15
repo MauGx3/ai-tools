@@ -3,7 +3,7 @@ layout: default
 title: Instructions Collection
 ---
 
-# Instructions Collection
+## Instructions Collection
 
 Step-by-step guides and procedures for AI tools and workflows.
 

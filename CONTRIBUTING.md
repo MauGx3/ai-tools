@@ -1,6 +1,8 @@
-# Contributing
+---
+title: "Contributing"
+---
 
-Thanks for your interest in contributing. This short guide explains the expected workflow and conventions.
+## Contributing
 
 1. Fork the repository and create a branch with a descriptive name.
 

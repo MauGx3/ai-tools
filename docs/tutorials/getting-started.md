@@ -1,9 +1,10 @@
-# Getting started
 ---
 title: "Getting started"
 type: "tutorial"
 layout: "default"
 ---
+
+## Getting started
 
 This tutorial helps a new contributor or user get the repository running locally and run the primary scripts (a small starred-repository scanner and recommender) so you can inspect results quickly.
 

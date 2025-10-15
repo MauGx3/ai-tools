@@ -3,7 +3,7 @@ layout: default
 title: Documentation
 ---
 
-# Documentation
+## Documentation
 
 Comprehensive guides, references, and examples for using AI tools effectively.
 

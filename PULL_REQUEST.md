@@ -1,6 +1,8 @@
-# Create a Pull Request for the documentation changes
+---
+title: "Create a Pull Request for the documentation changes"
+---
 
-This file contains exact commands (fish shell) you can run locally to create a branch, commit the documentation changes, push them to GitHub, and open a Pull Request using the GitHub CLI (`gh`). I cannot run git or open the PR from this environment, so these steps are provided for you to run locally.
+## Create a Pull Request for the documentation changes
 
 Recommended branch name:
 

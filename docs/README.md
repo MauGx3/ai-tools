@@ -1,6 +1,8 @@
-# Quick Start Reference
+---
+title: "Quick Start Reference"
+---
 
-## Prompt Templates
+## Quick Start Reference
 
 ### Basic Prompt
 ```yaml

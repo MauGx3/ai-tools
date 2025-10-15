@@ -3,7 +3,7 @@ layout: default
 title: Prompts Collection
 ---
 
-# Prompts Collection
+## Prompts Collection
 
 This section contains curated AI prompts organized by category. Each prompt includes detailed metadata, usage instructions, and examples.
 

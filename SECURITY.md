@@ -1,4 +1,8 @@
-# Security Policy
+---
+title: "Security Policy"
+---
+
+## Security Policy
 
 ## Supported Versions
 

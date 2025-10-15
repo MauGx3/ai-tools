@@ -3,7 +3,7 @@ layout: default
 title: Modes Collection
 ---
 
-# Modes Collection
+## Modes Collection
 
 AI interaction modes and configurations for different use cases.
 

@@ -7,7 +7,8 @@ related_tools: ["GitHub API", "GitHub MCP Server", "AI Analysis"]
 description: "Implementation of automated workflow to scan and analyze starred GitHub repositories"
 ---
 
-I've implemented an automated workflow to scan GitHub starred repositories, generate AI-powered descriptions, and organize them with relevant keywords and use cases. This addresses a common challenge in managing large collections of starred repositories.
+I've implemented an automated workflow to scan GitHub starred repositories, generate AI-powered descriptions, and organize
+them with relevant keywords and use cases. This addresses a common challenge in managing large collections of starred repositories.
 
 ## Background
 
@@ -58,7 +59,8 @@ However, after accumulating hundreds of stars, it becomes difficult to:
 - Instructions (human-readable workflow guide)
 - Script (automation tool)
 
-**AI-First Design**: The prompt is the core intelligence, while the script only handles data fetching. This allows the AI to evolve its analysis without script changes.
+**AI-First Design**: The prompt is the core intelligence, while the script only handles data fetching. This allows the AI to
+evolve its analysis without script changes.
 
 **Multiple Methods**: Provided both MCP Server and REST API approaches to accommodate different user setups.
 

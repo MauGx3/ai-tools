@@ -1,4 +1,9 @@
-# Jekyll Theme Upgrade
+---
+layout: default
+title: Jekyll Theme Upgrade
+---
+
+## Jekyll Theme Upgrade
 
 ## New Theme: Just the Docs
 

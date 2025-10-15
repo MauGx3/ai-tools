@@ -35,7 +35,7 @@ actionable insights.
 - **Key Technologies**: Languages, frameworks, dependencies, build tools
 - **Architecture Type**: CLI tool, library, framework, application, plugin, etc.
 - **Architecture Patterns**: Design patterns, architectural style (e.g., microservices, monolithic)
-- **Quality Indicators**: 
+- **Quality Indicators**:
   - Documentation quality and completeness
   - Test coverage indicators
   - CI/CD setup and automation
@@ -204,4 +204,3 @@ README Summary: [Paste first few sections]
   }
 }
 ```
-

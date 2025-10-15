@@ -1,4 +1,9 @@
-# Automatic Output to Results Folder - Implementation Summary
+---
+layout: default
+title: Automatic Output to Results Folder - Implementation Summary
+---
+
+## Automatic Output to Results Folder - Implementation Summary
 
 ## Overview
 Both `scan_starred_repos.py` and `repo_recommender.py` have been updated to automatically save their outputs to the `results/` folder with timestamped filenames.

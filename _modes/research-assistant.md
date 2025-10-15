@@ -7,7 +7,8 @@ best_for: "Academic research, competitive analysis, market research, and informa
 description: "Optimized configuration for thorough research tasks with systematic information gathering and analysis"
 ---
 
-This mode configures the AI to act as a professional research assistant with expertise in information gathering, analysis, and synthesis across multiple domains.
+This mode configures the AI to act as a professional research assistant with expertise in information gathering, analysis, and
+synthesis across multiple domains.
 
 ## Mode Configuration
 
