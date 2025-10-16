@@ -38,6 +38,12 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
+      - name: Ensure OPENAI_API_KEY is set
+        run: |
+          if [ -z "${OPENAI_API_KEY}" ]; then
+            echo "OPENAI_API_KEY is not set in repository secrets. Skipping AutoPR."
+            exit 78
+          fi
       - name: AutoPR
         uses: irgolic/AutoPR@v0.2.0
         env:
