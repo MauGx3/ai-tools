@@ -3,6 +3,9 @@
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 triggers:
   - label_substring: summarize
     on_issue: false
