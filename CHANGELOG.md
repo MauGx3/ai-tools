@@ -66,6 +66,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add Contributor Covenant Code of Conduct
 - Create SECURITY.md for security policy and reporting
 - Update issue templates
+- Add comprehensive documentation for AI Tools Collection and Memory Bank
+- *(tests)* Add WIP test runner prompts for Playwright integration
+- *(instructions)* Add brainstorming facilitator guide with structured ideation techniques
+- *(prompts)* Add instruction generation guide for AI coding agents
+- Add comprehensive guidelines for Specification-Driven Workflow v1, SQL development, task implementation, TaskSync V4, and TypeScript 5 ES2022 standards
+- Add comprehensive guidelines for Specification-Driven Workflow v1, SQL development, task implementation, TaskSync V4, and TypeScript 5/ES2022 standards
+- Add GitHub Actions workflows for AutoPR and triggers configuration
 
 ### 🐛 Bug Fixes
 
@@ -85,6 +92,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove references to confidence
 - Add index.md to resolve GitHub Pages 404 error
 - Add index.md to resolve GitHub Pages 404 error (#29)
+- Update applyTo syntax for consistency in AI prompt engineering guidelines
+- Correct typo in instruction source path and improve formatting in instruction generation guidelines
+- Correct formatting issues and ensure consistent markdown compliance across documentation files
+- Improve formatting and structure in workflow files; ensure proper installation command for jq and add validation job in triggers
+- Update collaborator check logic and improve error handling; upgrade actions/checkout and AutoPR versions
+- Add check for OPENAI_API_KEY in AutoPR workflow to ensure it is set before execution
 
 ### 📚 Documentation
 
@@ -99,6 +112,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add CONTRIBUTING guide
 - Add PULL_REQUEST helper
 - Update README with docs links
+- *(changelog)* Update changelog
+- *(changelog)* Update changelog (#30)
+- *(memory-bank)* Add consolidated authoring guidelines and task record (TASK002)
+- *(copilot)* Concise repo-specific Copilot instructions (read Memory Bank first)
+- Fix markdown compliance issues in core files
+- Add initial Awesome AI Tools documentation with curated resources
+- Update README and example workflow for Copilot setup steps; add workflow file for GitHub Actions
 
 ### 🚜 Refactor
 
@@ -124,6 +144,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - *(ci)* Trigger workflow run to validate Playwright tests (no functional changes)
 - *(scripts)* Add create_pr helper script
 - Delete scripts/create_pr.fish
+- Update documentation files with frontmatter and improve formatting
+- Remove outdated PULL_REQUEST and personal-finance.prompt.yml files to streamline project structure
 
 ### ◀️ Revert
 
