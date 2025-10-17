@@ -1,0 +1,17 @@
+{
+  "name": "ai-tools-tests",
+  "version": "1.0.0",
+  "description": "E2E tests for AI Tools documentation site",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "playwright": "^1.48.0"
+  }
+}

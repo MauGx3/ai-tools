@@ -129,7 +129,7 @@ Implementation is complete when:
 ## Template Changes File
 
 Use the following as a template for the changes file that tracks implementation progress for releases.
-Replace `{{ }}` with appropriate values. Create this file in `./.copilot-tracking/changes/` with filename: `YYYYMMDD-task-description-changes.md`
+Replace `{placeholder}` with appropriate values. Create this file in `./.copilot-tracking/changes/` with filename: `YYYYMMDD-task-description-changes.md`
 
 **IMPORTANT**: Update this file after EVERY task completion by appending to Added, Modified, or Removed sections.
 **MANDATORY**: Always include the following at the top of the changes file: `<!-- markdownlint-disable-file -->`
@@ -137,54 +137,54 @@ Replace `{{ }}` with appropriate values. Create this file in `./.copilot-trackin
 <!-- <changes-template> -->
 ```markdown
 <!-- markdownlint-disable-file -->
-# Release Changes: {{task name}}
+# Release Changes: {task name}
 
-**Related Plan**: {{plan-file-name}}
-**Implementation Date**: {{YYYY-MM-DD}}
+**Related Plan**: {plan-file-name}
+**Implementation Date**: {YYYY-MM-DD}
 
 ## Summary
 
-{{Brief description of the overall changes made for this release}}
+{Brief description of the overall changes made for this release}
 
 ## Changes
 
 ### Added
 
-- {{relative-file-path}} - {{one sentence summary of what was implemented}}
+- {relative-file-path} - {one sentence summary of what was implemented}
 
 ### Modified
 
-- {{relative-file-path}} - {{one sentence summary of what was changed}}
+- {relative-file-path} - {one sentence summary of what was changed}
 
 ### Removed
 
-- {{relative-file-path}} - {{one sentence summary of what was removed}}
+- {relative-file-path} - {one sentence summary of what was removed}
 
 ## Release Summary
 
-**Total Files Affected**: {{number}}
+**Total Files Affected**: {number}
 
-### Files Created ({{count}})
+### Files Created ({count})
 
-- {{file-path}} - {{purpose}}
+- {file-path} - {purpose}
 
-### Files Modified ({{count}})
+### Files Modified ({count})
 
-- {{file-path}} - {{changes-made}}
+- {file-path} - {changes-made}
 
-### Files Removed ({{count}})
+### Files Removed ({count})
 
-- {{file-path}} - {{reason}}
+- {file-path} - {reason}
 
 ### Dependencies & Infrastructure
 
-- **New Dependencies**: {{list-of-new-dependencies}}
-- **Updated Dependencies**: {{list-of-updated-dependencies}}
-- **Infrastructure Changes**: {{infrastructure-updates}}
-- **Configuration Updates**: {{configuration-changes}}
+- **New Dependencies**: {list-of-new-dependencies}
+- **Updated Dependencies**: {list-of-updated-dependencies}
+- **Infrastructure Changes**: {infrastructure-updates}
+- **Configuration Updates**: {configuration-changes}
 
 ### Deployment Notes
 
-{{Any specific deployment considerations or steps}}
+{Any specific deployment considerations or steps}
 ```
 <!-- </changes-template> -->

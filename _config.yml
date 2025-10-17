@@ -17,9 +17,28 @@ theme: just-the-docs
 # Enable/disable features
 search_enabled: true
 heading_anchors: true
+aux_links_new_tab: true
 
-# Color scheme (light/dark mode support)
-color_scheme: light
+# Color scheme - using a modern, friendly color scheme
+color_scheme: "custom"
+
+# Callouts for better visual hierarchy
+callouts_level: quiet
+callouts:
+  highlight:
+    color: yellow
+  important:
+    title: Important
+    color: blue
+  new:
+    title: New
+    color: green
+  note:
+    title: Note
+    color: purple
+  warning:
+    title: Warning
+    color: red
 
 # Appearance settings
 logo: false
@@ -27,13 +46,20 @@ favicon_ico: false
 
 # Navigation
 nav_sort: case_insensitive
+nav_external_links:
+  - title: GitHub Repository
+    url: https://github.com/MauGx3/ai-tools
 
 # Footer content
-footer_content: "© {{ site.time | date: '%Y' }} AI Tools Collection. Licensed under MPL 2.0."
+footer_content: "© {{ site.time | date: '%Y' }} AI Tools Collection. Licensed under <a href=\"https://www.mozilla.org/en-US/MPL/2.0/\">MPL 2.0</a>"
 
 # Back to top link
 back_to_top: true
 back_to_top_text: "Back to top"
+
+# Mermaid diagrams support
+mermaid:
+  version: "10.6.1"
 
 # Plugins
 plugins:
@@ -56,47 +82,36 @@ collections:
     output: true
     permalink: /:collection/:name/
 
-# Navigation
-navigation:
-  - title: Home
-    url: /
-  - title: Prompts
-    url: /prompts/
-  - title: Instructions
-    url: /instructions/
-  - title: Modes
-    url: /modes/
-  - title: Documentation
-    url: /docs/
-  - title: Thoughts
-    url: /thoughts/
-
 # Default front matter
 defaults:
   - scope:
       path: ""
+    values:
+      layout: "default"
+  - scope:
+      path: ""
       type: "prompts"
     values:
-      layout: "prompt"
-      category: "prompt"
+      layout: "default"
+      parent: "Prompts"
   - scope:
       path: ""
       type: "instructions"
     values:
-      layout: "instruction"
-      category: "instruction"
+      layout: "default"
+      parent: "Instructions"
   - scope:
       path: ""
       type: "modes"
     values:
-      layout: "mode"
-      category: "mode"
+      layout: "default"
+      parent: "Modes"
   - scope:
       path: ""
       type: "thoughts"
     values:
-      layout: "thought"
-      category: "thought"
+      layout: "default"
+      parent: "Thoughts"
 
 # Exclude from processing
 exclude:

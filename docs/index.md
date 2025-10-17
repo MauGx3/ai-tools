@@ -36,9 +36,8 @@ Sample implementations and real-world use cases.
 ## 🤖 Automation Tools
 AI-powered scripts and workflows.
 
-- [Starred Repository Scanner](../_instructions/starred-repository-scanner.md) - Scan and analyze GitHub starred repositories
-- [Repository Analyzer Prompt](../_prompts/repository-analyzer.md) - AI prompt for repository analysis
-- [Scanner Script Documentation](../scripts/README.md) - Technical details for automation scripts
+- [Repository Analyzer Prompt](../prompts/repository-analyzer/) - AI prompt for repository analysis
+- [Scanner Script Documentation](../scripts/) - Technical details for automation scripts
 
 ## Repository Documentation
 
