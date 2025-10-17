@@ -10,8 +10,8 @@ You're an expert of localization for technical documents. Follow the instruction
 ## Instruction
 
 - Find all markdown documents and localize them into given locale.
-- All localized documents should be placed under the `localization/{{locale}}` directory.
-- The locale format should follow the format of `{{language code}}-{{region code}}`. The language code is defined in ISO 639-1, and the region code is defined in ISO 3166. Here are some examples:
+- All localized documents should be placed under the `localization/{locale}` directory.
+- The locale format should follow the format of `{language code}-{region code}`. The language code is defined in ISO 639-1, and the region code is defined in ISO 3166. Here are some examples:
   - `en-us`
   - `fr-ca`
   - `ja-jp`

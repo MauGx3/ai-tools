@@ -40,3 +40,7 @@ __pycache__/
 results/
 # Keep .gitkeep to preserve directory structure
 !results/.gitkeep
+
+# Node.js dependencies
+node_modules/
+package-lock.json

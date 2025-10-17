@@ -13,10 +13,10 @@ Welcome to the AI Tools Collection! This repository contains a curated set of pr
 ## 🚀 Quick Start
 
 - **[Documentation](docs/)** - Comprehensive guides and references
-- **[Prompts](_prompts/)** - Ready-to-use AI prompts for various tasks
-- **[Instructions](_instructions/)** - Detailed instruction sets for AI assistants
-- **[Modes](_modes/)** - Different operational modes and contexts
-- **[Thoughts](_thoughts/)** - Experiments, insights, and learnings
+- **[Prompts](prompts/)** - Ready-to-use AI prompts for various tasks
+- **[Instructions](instructions/)** - Detailed instruction sets for AI assistants
+- **[Modes](modes/)** - Different operational modes and contexts
+- **[Thoughts](thoughts/)** - Experiments, insights, and learnings
 
 ## 📚 Documentation
 
