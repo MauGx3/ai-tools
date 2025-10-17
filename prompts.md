@@ -1,112 +1,118 @@
 ---
 layout: default
-title: Prompts Collection
+title: Prompts
 nav_order: 2
+has_children: true
 description: "Curated AI prompts organized by category"
 permalink: /prompts/
 ---
 
 # Prompts Collection
+{: .no_toc }
 
 This section contains curated AI prompts organized by category. Each prompt includes detailed metadata, usage instructions, and examples.
+{: .fs-6 .fw-300 }
+
+---
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## Categories
 
 ### 🚀 Coding Prompts
+{: .text-blue-300}
+
 Prompts for software development, debugging, and code review.
 
 {% assign coding_prompts = site.prompts | where: "category", "coding" %}
 {% if coding_prompts.size > 0 %}
-<ul>
 {% for prompt in coding_prompts %}
-  <li><a href="{{ prompt.url | relative_url }}">{{ prompt.title }}</a> - {{ prompt.description | default: "No description available" }}</li>
+- [{{ prompt.title }}]({{ prompt.url | relative_url }}) - {{ prompt.description | default: "No description available" }}
 {% endfor %}
-</ul>
 {% else %}
-<p><em>No coding prompts available yet. <a href="#contributing">Contribute some!</a></em></p>
+*No coding prompts available yet. [Contribute some!](#contributing)*
 {% endif %}
 
 ### ✍️ Writing Prompts
+{: .text-green-300}
+
 Prompts for content creation, editing, and documentation.
 
 {% assign writing_prompts = site.prompts | where: "category", "writing" %}
 {% if writing_prompts.size > 0 %}
-<ul>
 {% for prompt in writing_prompts %}
-  <li><a href="{{ prompt.url | relative_url }}">{{ prompt.title }}</a> - {{ prompt.description | default: "No description available" }}</li>
+- [{{ prompt.title }}]({{ prompt.url | relative_url }}) - {{ prompt.description | default: "No description available" }}
 {% endfor %}
-</ul>
 {% else %}
-<p><em>No writing prompts available yet. <a href="#contributing">Contribute some!</a></em></p>
+*No writing prompts available yet. [Contribute some!](#contributing)*
 {% endif %}
 
 ### 📊 Analysis Prompts
+{: .text-purple-300}
+
 Prompts for data analysis, research, and evaluation.
 
 {% assign analysis_prompts = site.prompts | where: "category", "analysis" %}
 {% if analysis_prompts.size > 0 %}
-<ul>
 {% for prompt in analysis_prompts %}
-  <li><a href="{{ prompt.url | relative_url }}">{{ prompt.title }}</a> - {{ prompt.description | default: "No description available" }}</li>
+- [{{ prompt.title }}]({{ prompt.url | relative_url }}) - {{ prompt.description | default: "No description available" }}
 {% endfor %}
-</ul>
 {% else %}
-<p><em>No analysis prompts available yet. <a href="#contributing">Contribute some!</a></em></p>
+*No analysis prompts available yet. [Contribute some!](#contributing)*
 {% endif %}
 
 ### 🎨 Creative Prompts
+{: .text-yellow-300}
+
 Prompts for brainstorming, ideation, and creative writing.
 
 {% assign creative_prompts = site.prompts | where: "category", "creative" %}
 {% if creative_prompts.size > 0 %}
-<ul>
 {% for prompt in creative_prompts %}
-  <li><a href="{{ prompt.url | relative_url }}">{{ prompt.title }}</a> - {{ prompt.description | default: "No description available" }}</li>
+- [{{ prompt.title }}]({{ prompt.url | relative_url }}) - {{ prompt.description | default: "No description available" }}
 {% endfor %}
-</ul>
 {% else %}
-<p><em>No creative prompts available yet. <a href="#contributing">Contribute some!</a></em></p>
+*No creative prompts available yet. [Contribute some!](#contributing)*
 {% endif %}
 
 ### ⚡ Productivity Prompts
+{: .text-red-300}
+
 Prompts for task management, planning, and optimization.
 
 {% assign productivity_prompts = site.prompts | where: "category", "productivity" %}
 {% if productivity_prompts.size > 0 %}
-<ul>
 {% for prompt in productivity_prompts %}
-  <li><a href="{{ prompt.url | relative_url }}">{{ prompt.title }}</a> - {{ prompt.description | default: "No description available" }}</li>
+- [{{ prompt.title }}]({{ prompt.url | relative_url }}) - {{ prompt.description | default: "No description available" }}
 {% endfor %}
-</ul>
 {% else %}
-<p><em>No productivity prompts available yet. <a href="#contributing">Contribute some!</a></em></p>
+*No productivity prompts available yet. [Contribute some!](#contributing)*
 {% endif %}
+
+---
 
 ## All Prompts
 
 {% assign all_prompts = site.prompts | sort: "title" %}
 {% if all_prompts.size > 0 %}
-<table>
-<thead>
-<tr>
-<th>Title</th>
-<th>Category</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-{% for prompt in all_prompts %}
-<tr>
-<td><a href="{{ prompt.url | relative_url }}">{{ prompt.title }}</a></td>
-<td><span class="category-badge">{{ prompt.category | default: "General" }}</span></td>
-<td>{{ prompt.description | default: "No description available" }}</td>
-</tr>
+
+| Title | Category | Description |
+|:------|:---------|:------------|
+{% for prompt in all_prompts -%}
+| [{{ prompt.title }}]({{ prompt.url | relative_url }}) | `{{ prompt.category | default: "General" }}` | {{ prompt.description | default: "No description available" }} |
 {% endfor %}
-</tbody>
-</table>
+
 {% else %}
-<p><em>No prompts available yet. Start by adding some prompts to the <code>_prompts</code> directory!</em></p>
+*No prompts available yet. Start by adding some prompts to the `_prompts` directory!*
 {% endif %}
+
+---
 
 ## Contributing
 
