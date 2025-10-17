@@ -1,3 +1,3 @@
 - https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
 - https://smithery.ai/server/@flight505/mcp-think-tank
--
+- https://smithery.ai/server/@kiennd/reference-servers: 
