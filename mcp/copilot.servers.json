@@ -1,0 +1,76 @@
+{
+    "mcpServers": {
+        "sequential-thinking": {
+            "type": "stdio",
+            "command": "npx",
+            "tools": [
+                "*"
+            ],
+            "args": [
+                "-y",
+                "@smithery/cli@latest",
+                "run",
+                "@kiennd/reference-servers",
+                "--key",
+                "f20d955b-3376-4b4b-bcd4-6794e2fce5db"
+            ]
+        },
+        "context7": {
+            "type": "http",
+            "tools": [
+                "*"
+            ],
+            "url": "https://mcp.context7.com/mcp",
+            "headers": {
+                "undefined": "{context7_api_key}"
+            }
+        },
+        "memory": {
+            "command": "npx",
+            "tools": [
+                "*"
+            ],
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory"
+            ],
+            "env": {
+                "MEMORY_FILE_PATH": "${input:memory_file_path}"
+            },
+            "type": "stdio"
+        },
+        "serena": {
+            "type": "stdio",
+            "command": "uvx",
+            "tools": [
+                "*"
+            ],
+            "args": [
+                "--from",
+                "git+https://github.com/oraios/serena",
+                "serena",
+                "start-mcp-server",
+                "serena==latest",
+                "--context",
+                "ide-assistant"
+            ]
+        },
+        "markitdown": {
+            "type": "stdio",
+            "command": "uvx",
+            "args": [
+                "markitdown-mcp==0.0.1a4"
+            ],
+            "tools": [
+                "*"
+            ]
+        },
+        "cognitionai/deepwiki": {
+            "type": "http",
+            "url": "https://mcp.deepwiki.com/sse"
+            "tools": [
+                "*"
+            ]
+        }
+    }
+}
