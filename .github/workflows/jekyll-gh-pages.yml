@@ -85,7 +85,7 @@ jobs:
       - name: Upload site artifact for preview
         # If Pages is not configured, still upload as regular artifact for review
         if: steps.pages.outcome == 'failure'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: github-pages
           path: _site/
@@ -93,7 +93,7 @@ jobs:
 
       - name: Upload Jekyll build log
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: jekyll-build-log
           path: jekyll_build.log
