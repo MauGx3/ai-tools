@@ -1,0 +1,20 @@
+<!-- Custom head content for mermaid diagram support -->
+{% if site.mermaid %}
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@{{ site.mermaid.version }}/dist/mermaid.esm.min.mjs';
+  
+  // Initialize mermaid with configuration
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default',
+    securityLevel: 'loose',
+    flowchart: {
+      useMaxWidth: true,
+      htmlLabels: true
+    }
+  });
+  
+  // Make mermaid available globally for debugging
+  window.mermaid = mermaid;
+</script>
+{% endif %}
