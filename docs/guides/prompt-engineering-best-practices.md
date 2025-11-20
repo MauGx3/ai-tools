@@ -12,18 +12,21 @@ This guide covers proven techniques for creating effective AI prompts that consi
 ## Core Principles
 
 ### 1. Clarity and Specificity
+
 - Use clear, unambiguous language
 - Be specific about desired outcomes
 - Define the scope and constraints
 - Avoid vague or open-ended instructions
 
 ### 2. Context and Role Setting
+
 - Establish the AI's role and expertise level
 - Provide relevant background information
 - Set the appropriate tone and style
 - Define the target audience
 
 ### 3. Structure and Format
+
 - Use consistent formatting conventions
 - Break complex requests into steps
 - Specify desired output format
@@ -32,20 +35,24 @@ This guide covers proven techniques for creating effective AI prompts that consi
 ## Prompt Engineering Techniques
 
 ### Role-Based Prompting
+
 ```
 You are a [specific role] with [X years] of experience in [domain].
 Your expertise includes [specific skills/knowledge areas].
 ```
 
 **Example:**
+
 ```
-You are a senior software architect with 15 years of experience in 
-distributed systems. Your expertise includes microservices design, 
+You are a senior software architect with 15 years of experience in
+distributed systems. Your expertise includes microservices design,
 scalability patterns, and cloud architecture.
 ```
 
 ### Chain of Thought Prompting
+
 Break complex problems into logical steps:
+
 ```
 Let's solve this step by step:
 1. First, [step one]
@@ -54,7 +61,9 @@ Let's solve this step by step:
 ```
 
 ### Few-Shot Learning
+
 Provide examples of desired input/output pairs:
+
 ```
 Here are some examples of the format I want:
 
@@ -68,7 +77,9 @@ Now please process: [your actual input]
 ```
 
 ### Constraint Setting
+
 Define clear boundaries and requirements:
+
 ```
 Requirements:
 - Length: Between X and Y words
@@ -81,17 +92,20 @@ Requirements:
 ## Advanced Techniques
 
 ### Temperature and Creativity Control
+
 - **Low temperature (0.1-0.3)**: For factual, consistent responses
 - **Medium temperature (0.5-0.7)**: For balanced creativity and accuracy
 - **High temperature (0.8-1.0)**: For creative, varied outputs
 
 ### Context Window Management
+
 - Prioritize most important information early
 - Use summarization for large contexts
 - Structure information hierarchically
 - Remove redundant or outdated context
 
 ### Iterative Refinement
+
 1. Start with a basic prompt
 2. Test and evaluate results
 3. Identify specific improvement areas
@@ -101,14 +115,18 @@ Requirements:
 ## Prompt Optimization Strategies
 
 ### A/B Testing Prompts
+
 Test different versions systematically:
+
 - Vary one element at a time
 - Test with consistent inputs
 - Measure specific success criteria
 - Document performance differences
 
 ### Prompt Versioning
+
 Keep track of prompt evolution:
+
 ```
 Version 1.0: Basic prompt
 Version 1.1: Added role definition
@@ -117,7 +135,9 @@ Version 2.0: Complete restructure
 ```
 
 ### Performance Metrics
+
 Track these key indicators:
+
 - **Accuracy**: Correctness of outputs
 - **Relevance**: Alignment with requirements
 - **Consistency**: Reproducibility across runs
@@ -127,39 +147,49 @@ Track these key indicators:
 ## Common Pitfalls to Avoid
 
 ### Ambiguous Instructions
+
 ❌ "Make this better"
 ✅ "Improve the code's readability by adding comments and using descriptive variable names"
 
 ### Overcomplicating
+
 ❌ Complex, multi-paragraph instructions
 ✅ Clear, concise, structured requests
 
 ### Missing Context
+
 ❌ "Review this code"
 ✅ "Review this Python function for a web API that processes user authentication, focusing on security and performance"
 
 ### Inconsistent Format
+
 ❌ Mixed formatting and unclear structure
 ✅ Consistent headers, bullet points, and examples
 
 ## Testing and Validation
 
 ### Test Cases
+
 Create a suite of test inputs:
+
 - **Edge cases**: Boundary conditions
 - **Typical cases**: Common scenarios
 - **Stress tests**: Maximum complexity
 - **Error cases**: Invalid inputs
 
 ### Evaluation Criteria
+
 Define success metrics:
+
 - **Functional**: Does it work correctly?
 - **Quality**: Is the output high-quality?
 - **Consistency**: Same input = same output?
 - **Efficiency**: Optimal resource usage?
 
 ### Feedback Loops
+
 Establish improvement processes:
+
 1. Collect user feedback regularly
 2. Monitor output quality trends
 3. Identify recurring issues
@@ -169,18 +199,21 @@ Establish improvement processes:
 ## Model-Specific Considerations
 
 ### GPT Models
+
 - Respond well to detailed context
 - Benefit from explicit format instructions
 - Handle complex reasoning tasks
 - Good with creative and analytical prompts
 
 ### Claude Models
+
 - Excel at following detailed instructions
 - Strong at maintaining character/role consistency
 - Good at structured outputs
 - Effective with safety-conscious prompts
 
 ### Specialized Models
+
 - **Code models**: Focus on technical accuracy
 - **Creative models**: Emphasize style and tone
 - **Analysis models**: Provide detailed reasoning
@@ -189,21 +222,27 @@ Establish improvement processes:
 ## Documentation and Maintenance
 
 ### Prompt Libraries
+
 Organize prompts systematically:
+
 - **Category**: By use case or domain
 - **Complexity**: Basic, intermediate, advanced
 - **Model**: Optimized for specific models
 - **Version**: Track improvements over time
 
 ### Best Practice Documentation
+
 Document your learnings:
+
 - **What works**: Successful patterns
 - **What doesn't**: Failed approaches
 - **Context**: When to use each technique
 - **Examples**: Real-world applications
 
 ### Regular Reviews
+
 Schedule prompt maintenance:
+
 - **Monthly**: Review performance metrics
 - **Quarterly**: Update based on new techniques
 - **Annually**: Complete prompt library audit
@@ -218,3 +257,24 @@ Schedule prompt maintenance:
 5. **Share**: Contribute successful patterns to the community
 
 Remember: Effective prompt engineering is an iterative process. Start simple, test thoroughly, and refine based on results.
+
+## Using instruction files & VS Code agents
+
+When you need repeatable, repository-scoped behavior (for example automated code review checks, consistent lint-like rules, or reusable workflows), prefer using instruction files or small custom VS Code agents instead of ad-hoc prompts.
+
+- Instruction files live in `_instructions/` and should include concise frontmatter (title, `applyTo` globs) and short, imperative rules — keep them focused and example-driven.
+- Use instruction files for deterministic, machine-driven behaviors (e.g., a standardized code-review checklist) and prompts for exploratory or one-off generation tasks.
+- VS Code custom agents (defined as `.agent.md` files, often placed in `.github/agents/`) let you compose agent behavior and handoffs; prefer small single-purpose agents that reference instruction files rather than embedding long prompt text.
+
+Quick mapping:
+
+- Use prompts when: quick prototyping, ad-hoc generation, or when you need highly interactive refinement.
+- Use instruction files when: you want consistent automated behaviors across PRs or CI, or when multiple contributors rely on the same guidance.
+- Use a custom VS Code agent when: you need an interactive persona (planner, reviewer, implementer) with specific tool access and optional handoffs between steps.
+
+Further reading and repo references
+
+- Practical agent design notes: `_thoughts/third-party/agents/Custom agents in VS Code.md`
+- Copilot instruction best-practices: `_thoughts/third-party/instructions/Unlocking the full power of Copilot code review Master your instructions files - The GitHub Blog.md`
+
+When adding instruction files, follow the guidance in `docs/how-to/add-a-prompt-or-instruction.md` and include at least one short example of expected input and expected feedback so automated workflows remain predictable.
