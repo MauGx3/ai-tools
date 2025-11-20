@@ -9,6 +9,7 @@ Welcome to the AI Tools Collection documentation. This site uses a Diátaxis-ali
 - How‑to: [Add a prompt or instruction](/docs/how-to/add-a-prompt-or-instruction/)
 - Reference: [Repository structure](/docs/reference/repo-structure/)
 - Explanation: [Design and the Memory Bank](/docs/explain/design-and-memory-bank/)
+- Explanation: [LLM Information Flow](/docs/explain/llm-information-flow/) - Flowcharts for prompts, instructions, agents, and Memory Bank
 - Quick smoke tests: [Try it](/docs/try-it/)
 
 For more guides and references, browse the `docs/` folder or the site navigation.
