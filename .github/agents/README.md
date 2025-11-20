@@ -105,7 +105,7 @@ When creating custom agents:
 
 - `_instructions/containerization-docker-best-practices.instructions.md`
 - `_instructions/kubernetes-deployment-best-practices.instructions.md`
-- `_instructions/github-actions-ci-cd-best-practices.instructions.md`
+- `.github/instructions/github-actions-ci-cd-best-practices.instructions.md`
 - `.github/copilot-instructions.md` - Global Copilot configuration
 
 ---

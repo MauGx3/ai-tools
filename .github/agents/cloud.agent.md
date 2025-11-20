@@ -70,7 +70,7 @@ Reference the comprehensive guidelines in `_instructions/kubernetes-deployment-b
 - Automated testing in pipelines
 - Rollback strategies
 
-Reference `_instructions/github-actions-ci-cd-best-practices.instructions.md` for detailed CI/CD guidance.
+Reference `.github/instructions/github-actions-ci-cd-best-practices.instructions.md` for detailed CI/CD guidance.
 
 ## Your Approach
 
