@@ -1,5 +1,6 @@
 ---
 applyTo: "**"
+excludeAgent: "coding-agent"
 title: "Structured Code Review Playbook"
 type: "best-practices"
 difficulty: "intermediate"

@@ -1,5 +1,6 @@
 ---
 title: "Code Review Best Practices and Guidelines"
+excludeAgent: "coding-agent"
 type: "best-practices"
 difficulty: "intermediate"
 time_required: "20-30 minutes"
