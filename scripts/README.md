@@ -4,6 +4,41 @@ This directory contains automation scripts for various AI-powered workflows.
 
 ## Available Scripts
 
+### `verify-mermaid-setup.sh`
+
+Verification script to check the mermaid diagram configuration and setup in the repository.
+
+**Features:**
+- Verifies Jekyll configuration for mermaid support
+- Checks custom head includes
+- Counts and lists all mermaid diagrams in the repository
+- Validates test file existence
+- Checks Node.js and Jekyll dependencies
+- Provides summary and next steps
+
+**Requirements:**
+- Bash shell
+- Git repository
+
+**Usage:**
+```bash
+# Run from repository root
+./scripts/verify-mermaid-setup.sh
+```
+
+**What it checks:**
+1. Jekyll `_config.yml` mermaid configuration
+2. Custom `_includes/head_custom.html` file
+3. Count of mermaid code blocks in all markdown files
+4. List of files containing mermaid diagrams
+5. Presence of mermaid test files
+6. Node.js dependencies (package.json, node_modules)
+7. Jekyll dependencies (Gemfile, bundler)
+
+For detailed mermaid verification and testing, see [MERMAID_VERIFICATION.md](../MERMAID_VERIFICATION.md).
+
+---
+
 ### `scan_starred_repos.py`
 
 Automated scanner for GitHub starred repositories. Fetches metadata and prepares data for AI-based analysis.
