@@ -65,7 +65,7 @@ These instructions provide guidelines for writing effective and maintainable tes
   * Mock functions to avoid intensive model training during testing.
   * Test with a small sample of data for efficiency.
   * Test data pre-processing and input pipelines.
-* **NumPy and Pandas:**
+* **NumPy, Pandas and Polars:**
   * Test functions with different input arrays and dataframes.
   * Test correct handling of different data types and shapes.
   * Test expected output arrays and dataframes.
