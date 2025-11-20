@@ -191,6 +191,7 @@ Quick links to new Diátaxis pages:
 - How‑to (Add a prompt or instruction): `docs/how-to/add-a-prompt-or-instruction.md`
 - Reference (Repo structure): `docs/reference/repo-structure.md`
 - Explanation (Design & Memory Bank): `docs/explain/design-and-memory-bank.md`
+- Explanation (LLM Information Flow): `docs/explain/llm-information-flow.md` - Comprehensive flowcharts
 
 Contribution guidance: see `CONTRIBUTING.md` for workflow and Conventional Commits.
 
