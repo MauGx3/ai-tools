@@ -19,6 +19,7 @@ Quick reference for the most important files and folders in this repository.
 - `results/` — example outputs and run artifacts (may be gitignored)
 - `.github/` — CI workflows, GitHub Actions and project automation
   - `workflows/` — contains e.g. `jekyll-gh-pages.yml` for site publishing
+  - `agents/` — custom agent definitions (`.agent.md` files) for VS Code
 - `docs/` — documentation pages for GitHub Pages / site
 
 Commands
