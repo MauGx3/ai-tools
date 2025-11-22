@@ -1,13 +1,15 @@
 # Active Context
 
 ## Current Focus
-Initialize Memory Bank and consolidate newly added Diátaxis documentation (tutorial, how-to, reference, explanation, try-it pages) with contributing guidelines.
+Creating custom agent infrastructure for GitHub Copilot to support specialized workflows. Currently implementing a Cloud Infrastructure Expert agent.
 
 ## Recently Completed
 - Added structured documentation pages under `docs/`
 - Added CONTRIBUTING guide and PR helper script
 - Began branch integration for documentation changes (rebasing & conflict resolution in progress previously)
 - Memory Bank scaffolding created (this session)
+- Created `.github/agents/` directory structure
+- Implemented Cloud Infrastructure Expert custom agent (`cloud.agent.md`)
 
 ## In Progress
 - Finalizing branch rebase & PR (if not already completed externally)
@@ -23,6 +25,9 @@ Initialize Memory Bank and consolidate newly added Diátaxis documentation (tuto
 - Chose to prioritize explicit Diátaxis segmentation for initial docs set.
 - Accepted "theirs" versions of doc files during rebase to unify content (pending rebase completion if not already pushed).
 - Established initial Memory Bank file schema exactly per instruction guidelines.
+- Created custom agent following VS Code `.agent.md` pattern with YAML frontmatter
+- Included comprehensive tools list (search, fetch, githubRepo, bash, view, edit, create) for cloud agent
+- Referenced existing instruction files for containerization and Kubernetes best practices
 
 ## Pending Questions
 - Should we version scripts dependencies with a lock file? (Open)
