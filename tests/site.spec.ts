@@ -94,10 +94,10 @@ test.describe('AI Tools site', () => {
         for (const collection of collections) {
             await page.goto(BASE + collection.url);
             await expect(page.locator('h1', { hasText: collection.heading })).toBeVisible();
-            
+
             // Check for category sections
             await expect(page.locator('h2, h3').first()).toBeVisible();
-            
+
             // Check for "All" section or table
             const allSection = page.locator('h2', { hasText: /All/ });
             if (await allSection.count() > 0) {
